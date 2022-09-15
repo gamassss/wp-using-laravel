@@ -31,3 +31,5 @@ Route::get('/pasien', [PasienController::class, 'index']);
 Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
+
+
