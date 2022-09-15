@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PriController;
+use App\Http\Controllers\PrjController;
+use App\Http\Controllers\PasienController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,38 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login', [
-        'title' => 'Login'
-    ]);
-});
+Route::get('/', [LoginController::class, 'index']);
 
-Route::get('/home', function () {
-    return view('home', [
-        'title' => 'Home'
-    ]);
-});
+Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('/register', function () {
-    return view('register', [
-        'title' => 'Register'
-    ]);
-});
+Route::get('/register', [RegisterController::class, 'index']);
 
-Route::get('/pasien', function () {
-    return view('pasien', [
-        'title' => 'Pasien'
-    ]);
-});
+Route::get('/pasien', [PasienController::class, 'index']);
 
-Route::get('/pasienri', function () {
-    return view('pri', [
-        'title' => 'Pasien Rawat Inap'
-    ]);
-});
+Route::get('/pasienri', [PriController::class, 'index']);
 
-Route::get('/pasienrj', function () {
-    return view('prj', [
-        'title' => 'Pasien Rawat Jalan'
-    ]);
-});
+Route::get('/pasienrj', [PrjController::class, 'index']);
