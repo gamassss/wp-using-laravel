@@ -6,6 +6,7 @@ use App\Http\Controllers\PrjController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RegisterController;
 
 
@@ -31,5 +32,7 @@ Route::get('/pasien', [PasienController::class, 'index']);
 Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
+
+Route::get('/lpage', [LandingController::class, 'index']);
 
 
