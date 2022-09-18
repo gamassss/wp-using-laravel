@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type'
     ];
 
 
@@ -42,4 +43,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $table = 'users';
+
+    public function scopeDoctor($builder)
+    {
+        return $builder->where('type', 'doctor');
+    }
+
+    public function scopeAdmin($builder)
+    {
+        return $builder->where('type', 'admin');
+    }
+
+    public function scopeStaff($builder)
+    {
+        return $builder->where('type', 'staff');
+    }
 }

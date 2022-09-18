@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model
+class Staff extends User
 {
-    use HasFactory;
+    public static function booted()
+    {
+        static::addGlobalScope('staff', function($builder)
+        {
+            $builder->where('type', self::class); 
+        });
+    }
 }
