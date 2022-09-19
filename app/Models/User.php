@@ -20,8 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'type'
+        'password'
     ];
 
 
@@ -46,18 +45,18 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    public function scopeDoctor($builder)
-    {
-        return $builder->where('type', 'doctor');
-    }
+    // public function scopeDoctor($builder)
+    // {
+    //     return $builder->where('type', 'doctor');
+    // }
 
-    public function scopeAdmin($builder)
-    {
-        return $builder->where('type', 'admin');
-    }
+    // public function scopeAdmin($builder)
+    // {
+    //     return $builder->where('type', 'admin');
+    // }
 
-    public function scopeStaff($builder)
-    {
-        return $builder->where('type', 'staff');
-    }
+    // public function scopeStaff($builder)
+    // {
+    //     return $builder->where('type', 'staff');
+    // }
 }

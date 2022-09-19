@@ -7,11 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends User
 {
-    public static function booted()
-    {
-        static::addGlobalScope('admin', function($builder)
-        {
-            $builder->where('type', self::class); 
-        });
-    }
+    use Child;
 }
