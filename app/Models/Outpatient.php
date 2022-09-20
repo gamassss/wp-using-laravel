@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Outpatient extends Model
+class Outpatient extends Patient
 {
-    use HasFactory;
+    use Child;
 }

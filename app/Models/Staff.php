@@ -7,11 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staff extends User
 {
-    public static function booted()
-    {
-        static::addGlobalScope('staff', function($builder)
-        {
-            $builder->where('type', self::class); 
-        });
-    }
+    use Child;
 }
