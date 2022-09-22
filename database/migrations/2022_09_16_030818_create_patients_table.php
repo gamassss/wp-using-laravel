@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->string('NIK');
+            $table->string('alamat');
+            $table->boolean('jenis_kelamin');
+            $table->string('no_tlp');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

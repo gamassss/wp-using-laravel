@@ -33,6 +33,10 @@ Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
 
-Route::get('/lpage', [LandingController::class, 'index']);
+Route::get('/dashboard', function(){
+  return view('dashboard', [
+    'title' => 'Dashboard'
+  ]);
+});
 
 

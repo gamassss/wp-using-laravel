@@ -2,42 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Payment;
+use Parental\HasChildren;
+use App\Models\PatientDetail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, HasChildren;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name', 'type'];
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    protected $table = 'patients';
-
+    public function patient_details()
+    {
+        return $this->hasMany(PatientDetail::class);
+    }
 }

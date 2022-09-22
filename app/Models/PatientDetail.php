@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use App\Models\Patient;
-use Parental\HasParent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Outpatient extends Patient
+class PatientDetail extends Model
 {
-    use HasParent;
+    use HasFactory;
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }

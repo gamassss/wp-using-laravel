@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('doctor_id');
+            $table->string('nama_resep');
+            $table->text('detail_resep');
+            $table->date('tgl_resep');
             $table->timestamps();
         });
     }
