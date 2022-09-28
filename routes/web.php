@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -21,7 +22,10 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index']);
+// Route::get('/', [LoginController::class, 'index']);
+Route::get('/', [LandingController::class, 'index']);
+
+Route::get('/login', [LoginController::class, 'index']);
 
 Route::get('/home', [HomeController::class, 'index']);
 
@@ -33,10 +37,6 @@ Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
 
-Route::get('/dashboard', function(){
-  return view('dashboard', [
-    'title' => 'Dashboard'
-  ]);
-});
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 

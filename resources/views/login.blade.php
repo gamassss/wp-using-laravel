@@ -52,7 +52,7 @@
                                         <input type="checkbox" name="remember" id="remember" class="form-check-input">
                                         <label for="remember" class="form-check-label">Remember Me</label>
                                     </div>
-                                    <button type="submit" class="btn btn-primary ms-auto" onclick="location.href='/home'">
+                                    <button type="submit" class="btn btn-primary ms-auto" onclick="location.href='/dashboard'">
                                         Login
                                     </button>
                                 </div>
