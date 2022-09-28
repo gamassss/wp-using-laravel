@@ -31,6 +31,8 @@ Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/register', [RegisterController::class, 'index']);
 
+Route::post('/register', [RegisterController::class, 'store']);
+
 Route::get('/pasien', [PasienController::class, 'index']);
 
 Route::get('/pasienri', [PriController::class, 'index']);

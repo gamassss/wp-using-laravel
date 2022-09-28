@@ -26,7 +26,7 @@
 
 <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow bg-body rounded sticky-top mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow bg-body rounded fixed-top mb-3">
             <div class="container">
                 <a class="navbar-brand fs-3" href="/"><span class="text-warning">RS</span><span class="text-primary">
                         Dr. Ayano</span></a>
@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#carouselRs">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#doctor">Make an Appointment</a>
@@ -53,7 +53,7 @@
             </div>
         </nav>
 
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselRs" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
