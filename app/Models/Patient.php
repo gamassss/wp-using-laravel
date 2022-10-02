@@ -12,7 +12,9 @@ class Patient extends Model
 {
     use HasFactory, HasChildren;
 
-    protected $fillable = ['name', 'type'];
+    // protected $fillable = ['name', 'type'];
+
+    protected $guarded = ['id'];
 
     public function payments()
     {

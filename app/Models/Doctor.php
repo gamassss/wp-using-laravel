@@ -9,4 +9,14 @@ use Parental\HasParent;
 class Doctor extends User
 {
   use HasParent;
+
+  public function recipes()
+  {
+    return $this->hasMany(Recipe::class);
+  }
+
+  public function poli()
+  {
+    return $this->belongsTo(Poli::class);
+  }
 }

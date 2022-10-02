@@ -10,4 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Outpatient extends Patient
 {
     use HasParent;
+
+        
+    public function poli_details()
+    {
+        return $this->hasMany(PoliDetail::class);
+    }
 }

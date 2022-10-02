@@ -1,11 +1,15 @@
 
 .navbar .navbar-nav .nav-link:hover {
-  background-color: red;
+  background-color: #ff3c78;
   color: white;
 }
 
 .navbar {
   padding: 0;
+}
+
+.container-fluid .navbar .container .navbar-brand span {
+  font-weight: 500;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -41,7 +45,25 @@
   background-color: white;
 }
 
-.card {
+.border-none{
+  border: none;
+}
+
+.container .row .card .card-body h5{
+  font-family: 'Abyssinica SIL', serif;
+  font-size: 25px;
+  padding-top: 90px;
+  margin-bottom: 8px;
+}
+
+.container .row .card .card-body p{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding-bottom: 90px;
+}
+
+.blog-none {
   border: none;
 }
 

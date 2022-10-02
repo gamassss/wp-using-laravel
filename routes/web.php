@@ -25,6 +25,10 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', [LoginController::class, 'index']);
 Route::get('/', [LandingController::class, 'index']);
 
+Route::get('/content', function() {
+  return view('content');
+});
+
 Route::get('/login', [LoginController::class, 'index']);
 
 Route::get('/home', [HomeController::class, 'index']);
