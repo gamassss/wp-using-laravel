@@ -10,7 +10,7 @@ class PriController extends Controller
 {
     public function index()
     {
-        $jumlah_halaman = Inpatient::count() / 10;
+        $jumlah_halaman = floor(Inpatient::count() / 10);
 
         return view('dashboard',[
             'title' => 'Data Pasien',

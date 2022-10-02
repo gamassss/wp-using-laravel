@@ -29,12 +29,12 @@ Route::get('/content', function() {
   return view('content');
 });
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/register', [RegisterController::class, 'index']);
-
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/pasien', [PasienController::class, 'index']);
@@ -43,7 +43,7 @@ Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
 
-Route::get('/dashboard', [PasienController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/dashboard/pasien', [PasienController::class, 'index']);
 

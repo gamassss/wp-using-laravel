@@ -11,7 +11,8 @@
       <!----css3---->
         <link rel="stylesheet" href="{{ asset('import/css/custom.css') }}">
     
-    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
     <!--google fonts -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,17 +113,21 @@
               <div class="xp-profilebar text-right">
                 <nav class="navbar p-0">
                 <ul class="nav navbar-nav flex-row ml-auto">
-                
+                <p>Welcome back, {{ Auth::user()->name }}</p>
                 <li class="dropdown nav-item">
                   <a class="nav-link" href="#" data-toggle="dropdown">
                   <img src="{{ asset('import/img/user.jpg') }}" style="width:40px; border-radius:50%;"/>
                   <span class="xp-user-live"></span>
                 </a>
                   <ul class="dropdown-menu small-menu">
-                  <li><a href="#">
-                  <span class="material-icons">logout</span>
-                  Logout
-                  </a></li>
+                  <li>
+                    <form action="" style="font-size: 14px; padding-left:11px;">
+                      @csrf
+                      <button type="submit">
+                        <i class="bi bi-box-arrow-right" style="margin-right: 6px;"></i> Logout
+                      </button>
+                    </form>
+                  </li>
                   </ul>
                 </li>
                 

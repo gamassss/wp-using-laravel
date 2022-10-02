@@ -11,7 +11,7 @@ class PrjController extends Controller
 {
     public function index()
     {
-        $jumlah_halaman = Outatient::count() / 10;
+        $jumlah_halaman = floor(Outpatient::count() / 10);
 
         return view('dashboard',[
             'title' => 'Data Pasien',

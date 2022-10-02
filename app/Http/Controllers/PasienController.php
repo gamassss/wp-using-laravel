@@ -10,7 +10,7 @@ class PasienController extends Controller
 {
     public function index()
     {   
-        $jumlah_halaman = Patient::count() / 10;
+        $jumlah_halaman = floor(Patient::count() / 10);
 
         return view('dashboard',[
             'title' => 'Data Pasien',
