@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,11 +18,17 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $password = bcrypt(fake()->password);
+        $type = ['App\Models\Admin', 'App\Models\Staff', 'App\Models\Doctor'];
+        
+
         return [
             'name' => fake()->name(),
+            'username' => fake()->username(),
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'type' => $type[mt_rand(0,2)],
+            'password' => $password, // password
             'remember_token' => Str::random(10),
         ];
     }

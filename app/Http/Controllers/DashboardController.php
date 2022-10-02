@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use App\Models\Poli;
 
 class DashboardController extends Controller
 {
@@ -11,7 +12,9 @@ class DashboardController extends Controller
     {
         return view('dashboard',[
             'title' => 'Dashboard',
-            'patient' => Patient::all()
+            'data' => 'Pasien',
+            'patients' => Patient::all(),
+            'polis' => Poli::all()
         ]);
     }
 }

@@ -16,6 +16,7 @@ class PatientFactory extends Factory
      */
     public function definition()
     {
+        $type = ['App\Models\Inpatient', 'App\Models\Outpatient'];
         //      $table->id();
         //      $table->string('name');
         //      $table->string('NIK');
@@ -29,6 +30,7 @@ class PatientFactory extends Factory
             'NIK' => fake()->nik(),
             'alamat' => fake()->address(),
             'jenis_kelamin' => mt_rand(1,2),
+            'type' => $type[mt_rand(0,1)],
             'no_tlp' => fake()->phoneNumber()
         ];
     }

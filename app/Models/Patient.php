@@ -16,6 +16,23 @@ class Patient extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filters)
+    {
+        // if (isset($filters['search']) ? $filters['search'] : false) {
+        //     $query->where('name', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('NIK', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('alamat', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('no_tlp', 'like', '%' . $filters['search'] . '%');
+        // }
+
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('NIK', 'like', '%' . $search . '%')
+                        ->orWhere('alamat', 'like', '%' . $search . '%')
+                        ->orWhere('no_tlp', 'like', '%' . $search . '%');
+        });
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

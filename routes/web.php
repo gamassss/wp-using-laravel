@@ -43,6 +43,13 @@ Route::get('/pasienri', [PriController::class, 'index']);
 
 Route::get('/pasienrj', [PrjController::class, 'index']);
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [PasienController::class, 'index']);
+
+Route::get('/dashboard/pasien', [PasienController::class, 'index']);
+
+Route::get('/dashboard/pri', [PriController::class, 'index']);
+
+Route::get('/dashboard/prj', [PrjController::class, 'index']);
+
 
 
