@@ -158,7 +158,13 @@
         <div class="alert alert-success" role="alert">
           {{ session('success') }}
         </div>
-        @endif  
+        @endif 
+        
+        @if (session()->has('danger'))
+        <div class="alert alert-danger" role="alert">
+          {{ session('danger') }}
+        </div>
+        @endif 
 
 
           <div class="main-content">
@@ -213,9 +219,13 @@
                       <a href="#editEmployeeModal" class="edit" data-toggle="modal">
                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </a>
+                    <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
+                      @method('delete')
+                      @csrf
+                      {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
+                      <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
+                      {{-- </a> --}}
+                    </form>
                   </th>
                   </tr>
                 @endforeach
@@ -457,6 +467,7 @@
   <script src="{{ asset('import/js/popper.min.js') }}"></script>
   <script src="{{ asset('import/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('import/js/jquery-3.3.1.min.js') }}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script type="text/javascript">
     $('#selectAll').click(function(event) {   

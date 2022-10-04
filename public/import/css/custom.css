@@ -100,11 +100,10 @@ body,html{
 	  transition:all 0.3s;
   }
   
-  
   .wrapper{
 	position:relative;
-width:100%;
-overflow:auto;	
+	width:100%;
+	overflow:auto;	
   }
   
   /*=========sidebar---design------*/

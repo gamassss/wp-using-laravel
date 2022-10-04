@@ -104,6 +104,8 @@ class DashboardPasienController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+        Patient::destroy($patient->id);
+
+        return redirect('/dashboard/pasien')->with('danger', 'The patient data has been deleted.');
     }
 }

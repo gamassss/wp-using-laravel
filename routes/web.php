@@ -50,8 +50,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 // Route::get('/dashboard/prj', [PrjController::class, 'index']);
 
-Route::resource('/dashboard/pasien', DashboardPasienController::class)->middleware('auth');
+Route::resource('/dashboard/pasien', DashboardPasienController::class)->middleware('auth')->except([
+  'show', 'destroy', 'edit', 'update'
+])->middleware('auth');;
 
+Route::delete('/dashboard/pasien/{patient}', [DashboardPasienController::class, 'destroy'])->middleware('auth');
 
 Route::resource('/dashboard/pri', DashboardPriController::class)->middleware('auth');
 
