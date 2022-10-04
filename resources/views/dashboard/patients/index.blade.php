@@ -45,9 +45,9 @@
       <i class="material-icons">personal_injury</i>Pasien
       </a>
         <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-          <li class="{{ ($data == 'Pasien'? 'active' : '') }}"><a href="/dashboard/pasien">Pasien</a></li>
-          <li><a href="/dashboard/pri">Pasien Rawat Inap</a></li>
-          <li><a href="/dashboard/prj">Pasien Rawat Jalan</a></li>
+          <li class="{{ Request::is('dashboard/pasien') ? 'active' : '' }}"><a href="/dashboard/pasien">Pasien</a></li>
+          <li class="{{ Request::is('dashboard/pri') ? 'active' : '' }}"><a href="/dashboard/pri">Pasien Rawat Inap</a></li>
+          <li class="{{ Request::is('dashboard/prj') ? 'active' : '' }}"><a href="/dashboard/prj">Pasien Rawat Jalan</a></li>
         </ul>
       </li>
 
@@ -119,12 +119,12 @@
                   <img src="{{ asset('import/img/user.jpg') }}" style="width:40px; border-radius:50%;"/>
                   <span class="xp-user-live"></span>
                 </a>
-                  <ul class="dropdown-menu small-menu">
+                  <ul class="dropdown-menu small-menu px-2">
                   <li>
-                    <form action="" style="font-size: 14px; padding-left:11px;">
+                    <form action="/logout" method="post">
                       @csrf
-                      <button type="submit">
-                        <i class="bi bi-box-arrow-right" style="margin-right: 6px;"></i> Logout
+                      <button type="submit" style="font-size: 14px;">
+                        <i class="bi bi-box-arrow-right" style="margin-right: 3px;"></i> Logout
                       </button>
                     </form>
                   </li>
@@ -142,7 +142,7 @@
         <div class="xp-breadcrumbbar text-center">
             <h4 class="page-title">Dashboard</h4>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ $type }}</a></li>
             <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
           </ol>
         </div>
@@ -154,158 +154,210 @@
       
       
       <!------main-content-start-----------> 
-        
+        @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">
+          {{ session('success') }}
+        </div>
+        @endif  
+
+
           <div class="main-content">
           <div class="row">
             <div class="col-md-12">
             <div class="table-wrapper">
               
-            <div class="table-title">
-              <div class="row">
-                <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                  <h2 class="ml-lg-2">{{ $data }}</h2>
+              <div class="table-title">
+                <div class="row">
+                  <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                    <h2 class="ml-lg-2">{{ $data }}</h2>
+                </div>
+                <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+                  <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
+                  <i class="material-icons">&#xE147;</i>
+                  <span>Add New Patient</span>
+                  </a>
+                  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+                  <i class="material-icons">&#xE15C;</i>
+                  <span>Delete</span>
+                  </a>
+                </div>
+                </div>
               </div>
-              <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
-                <i class="material-icons">&#xE147;</i>
-                <span>Add New Patient</span>
-                </a>
-                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-                <i class="material-icons">&#xE15C;</i>
-                <span>Delete</span>
-                </a>
-              </div>
-              </div>
-            </div>
-            
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-              <th><span class="custom-checkbox">
-              <input type="checkbox" id="selectAll">
-              <label for="selectAll"></label></th>
-              <th>Name</th>
-              <th>NIK</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>Actions</th>
-              </tr>
-              </thead>
               
-              <tbody>
-              
-              @foreach ($patients as $patient)
-              <tr>
+              <table class="table table-striped table-hover">
+                  <thead>
+                  <tr>
                 <th><span class="custom-checkbox">
-                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
-                <label for="checkbox1"></label></th>
-                <th>{{ $patient->name }}</th>
-                <th>{{ $patient->NIK }}</th>
-                <th>{{ $patient->alamat }}</th>
-                <th>{{ $patient->no_tlp }}</th>
-                <th>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                  <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                  </a>
-                  <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                  <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                  </a>
-                </th>
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll"></label></th>
+                <th>Name</th>
+                <th>NIK</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Actions</th>
                 </tr>
-              @endforeach
-
-              
-              </tbody>
-              
+                </thead>
                 
-            </table>
+                <tbody>
+                
+                @foreach ($patients as $patient)
+                <tr>
+                  <th><span class="custom-checkbox">
+                  <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
+                  <label for="checkbox1"></label></th>
+                  <th>{{ $patient->name }}</th>
+                  <th>{{ $patient->NIK }}</th>
+                  <th>{{ $patient->alamat }}</th>
+                  <th>{{ $patient->no_tlp }}</th>
+                  <th>
+                      <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
+                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>
+                  </th>
+                  </tr>
+                @endforeach
 
-            @if (!$patients->count())
-                <p class="text-center">No patients found.</p>
-            @endif
-            
-            <?php 
-              if (isset($_GET['page'])) {
-                $pageActive = $_GET['page'];
-              }
-            ?>
-            <div class="clearfix">
-              <div class="hint-text">showing <b>10</b> out of <b>{{ $jumlah_pasien }}</b></div>
-              <ul class="pagination">
-                @if (isset($_GET['page']))
-                  @if ($pageActive > 1)
-                    <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
-                @endif
-                @for ($i = 0; $i < $jml_hal; $i++)
-                    <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
-                @endfor
-                @if ($pageActive < $jml_hal)
-                  <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
-                @endif
+                
+                </tbody>
+                
+                  
+              </table>
 
-                @else
-
+              @if (!$patients->count())
+                  <p class="text-center">No patients found.</p>
+              @endif
+              
+              <?php 
+                if (isset($_GET['page'])) {
+                  $pageActive = $_GET['page'];
+                }
+              ?>
+              <div class="clearfix">
+                <div class="hint-text">showing <b>10</b> out of <b>{{ $jumlah_pasien }}</b></div>
+                <ul class="pagination">
+                  @if (isset($_GET['page']))
+                    @if ($pageActive > 1)
+                      <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
+                  @endif
                   @for ($i = 0; $i < $jml_hal; $i++)
-                    <li class="page-item {{ ($i == 0) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                      <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
                   @endfor
-                  <li class="page-item "><a href="pasien?page=2" class="page-link">Next</a></li>  
-                @endif
-            </ul>
-            </div>
-            
-            
-            
-            
-  
-            
-            
-            
-            
+                  @if ($pageActive < $jml_hal)
+                    <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
+                  @endif
+
+                  @else
+
+                    @for ($i = 0; $i < $jml_hal; $i++)
+                      <li class="page-item {{ ($i == 0) ? 'active' : '' }}"><a href="?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                    @endfor
+                    <li class="page-item "><a href="?page=2" class="page-link">Next</a></li>  
+                  @endif
+              </ul>
+              </div>
+              
             </div>
           </div>
           
           
                     <!----add-modal start--------->
-    <div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Patients</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" tabindex="-1" id="addPatientModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Patients</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/dashboard/pasien" method="post">
+              @csrf
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                @error('name')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="nik">NIK</label>
+                <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="NIK" value="{{ old('NIK') }}" required>
+                @error('NIK')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="alamat">Address</label>
+                <textarea id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required></textarea>
+                @error('alamat')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <label>Jenis Kelamin</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1>
+                <label class="form-check-label" for="pria">Pria</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=0>
+                <label class="form-check-label" for="wanita">Wanita</label>
+              </div>
+              @error('jenis_kelamin')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp') }}" required>
+                  @error('no_tlp')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
+                </div>
+                <div class="my-3">
+                  <label for="pasien">Pasien</label><br>
+                  <select id="pasien" class="form-select" aria-label="Default select example" name="type">
+                      <option value="App\Models\Inpatient" selected>Pasien Rawat Inap</option>
+                      <option value="App\Models\Outpatient">Pasien Rawat Jalan</option>
+                  </select>
+                  @error('type')
+                  <div class="invalid-feedback">
+                      {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              {{-- <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                @error('email')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div> --}}
+              <div class="modal-footer" style="margin: 0 -30px">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </form>
+          </div> 
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-        <label>Name</label>
-      <input type="text" class="form-control" required>
     </div>
-    <div class="form-group">
-        <label>NIK</label>
-      <input type="emil" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label>Address</label>
-      <textarea class="form-control" required></textarea>
-    </div>
-    <div class="form-group">
-        <label>Phone</label>
-      <input type="text" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="text" class="form-control" required>
-    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success">Add</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-            <!----edit-modal end--------->
+            <!----add-modal end--------->
             
             
             

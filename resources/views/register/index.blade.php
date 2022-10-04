@@ -54,7 +54,7 @@
                                         <option value="App\Models\Staff">Staff</option>
                                         <option value="App\Models\Doctor">Dokter</option>
                                     </select>
-                                    @error('username')
+                                    @error('type')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
