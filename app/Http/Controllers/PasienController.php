@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Poli;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PatientExport;
 
 class PasienController extends Controller
 {
@@ -25,8 +27,10 @@ class PasienController extends Controller
         ]);
     }
 
-    public function tambah()
+    
+
+    public function pasienExport()
     {
-        
+        return Excel::download(new PatientExport, 'pasien.xls');
     }
 }

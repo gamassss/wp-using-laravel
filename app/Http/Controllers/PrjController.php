@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Outpatient;
 use App\Models\Poli;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OutpatientExport;
 
 class PrjController extends Controller
 {
@@ -23,5 +25,10 @@ class PrjController extends Controller
             'patients' => Outpatient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()
         ]);
+    }
+
+    public function pasienExport()
+    {
+        return Excel::download(new OutpatientExport, 'pasien-rawat-jalan.xls');
     }
 }

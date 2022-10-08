@@ -44,17 +44,23 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/pasien', [PasienController::class, 'index']);
 Route::post('/pasien/tambah', [PasienController::class, 'tambah']);
 
+Route::get('/exportpasien/pasien', [PasienController::class, 'pasienExport']);
+Route::get('/exportpasien/pri', [PriController::class, 'pasienExport']);
+Route::get('/exportpasien/prj', [PrjController::class, 'pasienExport']);
+
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 // Route::get('/dashboard/pri', [PriController::class, 'index']);
 
 // Route::get('/dashboard/prj', [PrjController::class, 'index']);
 
-Route::resource('/dashboard/pasien', DashboardPasienController::class)->middleware('auth')->except([
-  'show', 'destroy', 'edit', 'update'
-])->middleware('auth');;
+Route::resource('/dashboard/pasien', DashboardPasienController::class)->middleware('auth');
+
+// Route::get('/dashboard/pasien/{patient}/edit', [DashboardPasienController::class, 'edit'])->middleware('auth');
 
 Route::delete('/dashboard/pasien/{patient}', [DashboardPasienController::class, 'destroy'])->middleware('auth');
+// Route::put('/dashboard/pasien/{patient}/', [DashboardPasienController::class, 'update']);
 
 Route::resource('/dashboard/pri', DashboardPriController::class)->middleware('auth');
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Inpatient;
 use App\Models\Poli;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\InpatientExport;
 
 class PriController extends Controller
 {
@@ -23,5 +25,10 @@ class PriController extends Controller
             'patients' => Inpatient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()
         ]);
+    }
+
+    public function pasienExport()
+    {
+        return Excel::download(new InpatientExport, 'pasien-rawat-inap.xls');
     }
 }

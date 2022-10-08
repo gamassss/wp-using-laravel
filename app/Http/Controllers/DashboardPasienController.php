@@ -18,13 +18,18 @@ class DashboardPasienController extends Controller
     {
         $jumlah_halaman = ceil(Patient::count() / 10);
         $role = explode('\\', Auth::user()->type);
+        if (Patient::count() == 0) {
+            $jumlah_pasien = 0;
+        } else {
+            $jumlah_pasien = Patient::count();
+        }
 
         return view('dashboard.patients.index',[
             'title' => 'Data Pasien',
             'data' => 'Pasien',
             'jml_hal' => $jumlah_halaman,
-            'type' => $role[2],
-            'jumlah_pasien' => Patient::count(),
+            'type' => Auth::user()->type,
+            'jumlah_pasien' => $jumlah_pasien,
             'patients' => Patient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()
         ]); 
@@ -48,7 +53,7 @@ class DashboardPasienController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|max:255',
             'NIK' => 'required|max:16',
             'alamat' => 'required',
@@ -79,9 +84,14 @@ class DashboardPasienController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
-    {
-        //
+    public function edit(Patient $pasien)
+    {   
+        return view('dashboard.patients.edit', [
+            'title' => 'Edit Data Pasien',
+            'patient' => $pasien,
+            'type' => Auth::user()->type,
+            'polis' => Poli::all()
+        ]);
     }
 
     /**
@@ -91,9 +101,21 @@ class DashboardPasienController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, Patient $pasien)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'NIK' => 'required|max:16',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+            'no_tlp' => 'required',
+            'type' => 'required',
+        ]);
+
+        Patient::where('id', $pasien->id)
+                ->update($validatedData);
+
+        return redirect('/dashboard/pasien')->with('success', 'Patient data has been updated.');
     }
 
     /**

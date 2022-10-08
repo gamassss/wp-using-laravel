@@ -26,6 +26,17 @@ class User extends Authenticatable
     // ];
 
     protected $guarded = ['id'];
+    
+    protected $childTypes = [
+        'admin' => Admin::class,
+        'doctor' => Doctor::class,
+        'staff' => Staff::class
+    ];
+
+    protected $attributes = [
+        'type' => 'admin'
+    ];
+
 
 
     /**

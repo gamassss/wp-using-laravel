@@ -18,13 +18,18 @@ class DashboardPriController extends Controller
     {
         $jumlah_halaman = ceil(Inpatient::count() / 10);
         $role = explode('\\', Auth::user()->type);
+        if (Inpatient::count() == 0) {
+            $jumlah_pasien = 0;
+        } else {
+            $jumlah_pasien = Inpatient::count();
+        }
 
         return view('dashboard.patients.index',[
             'title' => 'Data Pasien',
             'data' => 'Pasien Rawat Inap',
             'jml_hal' => $jumlah_halaman,
-            'type' => $role[2],
-            'jumlah_pasien' => Inpatient::count(),
+            'type' => Auth::user()->type,
+            'jumlah_pasien' => $jumlah_pasien,
             'patients' => Inpatient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()
         ]);

@@ -16,6 +16,12 @@ class Patient extends Model
 
     protected $guarded = ['id'];
 
+    protected $childTypes = [
+        'inpatient' => Inpatient::class,
+        'outpatient' => Outpatient::class
+    ];
+
+
     public function scopeFilter($query, array $filters)
     {
         // if (isset($filters['search']) ? $filters['search'] : false) {

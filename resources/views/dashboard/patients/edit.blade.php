@@ -24,8 +24,6 @@
 
   </head>
   <body>
-  
-
 
 <div class="wrapper">
     
@@ -63,19 +61,12 @@
         </ul>
         </li>
       
-      @if ($data == 'Pasien')
-          <?php $slug = 'pasien' ?>
-      @elseif ($data == 'Pasien Rawat Inap')
-          <?php $slug = 'pri' ?>
-      @else
-          <?php $slug = 'prj' ?>
-      @endif
-
+      
       <li class="">
       <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
       </li>
       <li class="">
-      <a href="/exportpasien/{{ $slug }}" class=""><i class="material-icons">library_books</i>Copy </a>
+      <a href="#" class=""><i class="material-icons">library_books</i>Copy </a>
       </li>
     
     </ul>
@@ -175,117 +166,130 @@
 
 
           <div class="main-content">
-          <div class="row">
-            <div class="col-md-12">
-            <div class="table-wrapper">
-              
-              <div class="table-title">
-                <div class="row">
-                  <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                    <h2 class="ml-lg-2">{{ $data }}</h2>
-                </div>
-                <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-                  <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
-                  <i class="material-icons">&#xE147;</i>
-                  <span>Add New Patient</span>
-                  </a>
-                  {{-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-                  <i class="material-icons">&#xE15C;</i>
-                  <span>Delete</span>
-                  </a> --}}
-                </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-wrapper">
+                  <div class="table-title">
+                    <div class="row">
+                      <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                        <h2 class="ml-lg-2">Edit Data Pasien</h2>
+                    </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              <table class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                <th><span class="custom-checkbox">
-                <input type="checkbox" id="selectAll">
-                <label for="selectAll"></label></th>
-                <th>Name</th>
-                <th>NIK</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Actions</th>
-                </tr>
-                </thead>
-                
-                <tbody>
-                
-                @foreach ($patients as $patient)
-                <tr>
-                  <th><span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
-                  <label for="checkbox1"></label></th>
-                  <th>{{ $patient->name }}</th>
-                  <th>{{ $patient->NIK }}</th>
-                  <th>{{ $patient->alamat }}</th>
-                  <th>{{ $patient->no_tlp }}</th>
-                  <th>
-                    <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
-                      <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                    </a>
-                    <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
-                      @method('delete')
-                      @csrf
-                      {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
-                      <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                      </button>
-                      {{-- </a> --}}
-                    </form>
-                  </th>
-                  </tr>
-                @endforeach
+            </div>
 
-                
-                </tbody>
-                
-                  
-              </table>
-
-              @if (!$patients->count())
-                  <p class="text-center">No patients found.</p>
-              @endif
-              
-              <?php 
-                if (isset($_GET['page'])) {
-                  $pageActive = $_GET['page'];
-                } else {
-                  $pageActive = 1;
-                }
-
-                if ($jumlah_pasien == 0) {
-                  $data_tampil = 0;
-                } else {
-                  $data_tampil = 10;
-                }
-              ?>
-              <div class="clearfix">
-                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
-                <ul class="pagination">
-                  @if (isset($_GET['page']))
-                    @if ($pageActive > 1)
-                      <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
-                  @endif
-                  @for ($i = 0; $i < $jml_hal; $i++)
-                      <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
-                  @endfor
-                  @if ($pageActive < $jml_hal)
-                    <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
-                  @endif
-
+            <div class="row">
+              <div class="col-md-12">
+                <form action="/dashboard/pasien/{{ $patient->id }}" method="post">
+                  @method('put')
+                  @csrf
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $patient->name) }}" required autofocus>
+                    @error('name')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="nik">NIK</label>
+                    <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="NIK" value="{{ old('NIK', $patient->NIK) }}" required>
+                    @error('NIK')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  @if ($patient->type === "App\Models\Inpatient")
+                    <div class="my-3">
+                      <label for="pasien">Pasien</label><br>
+                      <select id="pasien" class="form-select" aria-label="Default select example" name="type">
+                          <option value="App\Models\Inpatient" selected>Pasien Rawat Inap</option>
+                          <option value="App\Models\Outpatient">Pasien Rawat Jalan</option>
+                      </select>
+                      @error('type')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
                   @else
-
-                    @for ($i = 0; $i < $jml_hal; $i++)
-                      <li class="page-item {{ ($i == 0) ? 'active' : '' }}"><a href="?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
-                    @endfor
-                    <li class="page-item "><a href="?page=2" class="page-link">Next</a></li>  
+                    <div class="my-3">
+                      <label for="pasien">Pasien</label><br>
+                      <select id="pasien" class="form-select" aria-label="Default select example" name="type">
+                          <option value="App\Models\Inpatient">Pasien Rawat Inap</option>
+                          <option value="App\Models\Outpatient" selected>Pasien Rawat Jalan</option>
+                      </select>
+                      @error('type')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
                   @endif
-              </ul>
+                  <div class="form-group">
+                    <label for="alamat">Address</label>
+                    <input id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat', $patient->alamat) }}" required></input>
+                    @error('alamat')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                  @if ($patient->jenis_kelamin == 1)
+                    <label>Jenis Kelamin</label><br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1 checked>
+                      <label class="form-check-label" for="pria">Pria</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=2>
+                      <label class="form-check-label" for="wanita">Wanita</label>
+                    </div>
+                  @else
+                    <label>Jenis Kelamin</label><br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1>
+                      <label class="form-check-label" for="pria">Pria</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=2 checked>
+                      <label class="form-check-label" for="wanita">Wanita</label>
+                    </div>
+                  @endif
+                  @error('jenis_kelamin')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp', $patient->no_tlp) }}" required>
+                      @error('no_tlp')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                  {{-- <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                    @error('email')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div> --}}
+                  <div class="modal-footer" style="margin: 0 -30px">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" name="edit-btn">Save</button>
+                  </div>
+                </form>
               </div>
-              
             </div>
           </div>
           
@@ -391,91 +395,7 @@
             
             
           <!----edit-modal start--------->
-    <div class="modal fade" tabindex="-1" id="editPatientModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Patients</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/dashboard/pasien/{{ $patient }}" method="post">
-          @method('put')
-          @csrf
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
-            @error('name')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="nik">NIK</label>
-            <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="NIK" value="{{ old('NIK') }}" required>
-            @error('NIK')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="my-3">
-            <label for="pasien">Pasien</label><br>
-            <select id="pasien" class="form-select" aria-label="Default select example" name="type">
-                <option value="App\Models\Inpatient" selected>Pasien Rawat Inap</option>
-                <option value="App\Models\Outpatient">Pasien Rawat Jalan</option>
-            </select>
-            @error('type')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="alamat">Address</label>
-            <textarea id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required></textarea>
-            @error('alamat')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <label>Jenis Kelamin</label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1>
-            <label class="form-check-label" for="pria">Pria</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=0>
-            <label class="form-check-label" for="wanita">Wanita</label>
-          </div>
-          @error('jenis_kelamin')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp') }}" required>
-              @error('no_tlp')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-            </div>
-            <div class="modal-footer" style="margin: 0 -30px">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save</button>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
+    
             <!----edit-modal end--------->	   
             
             
@@ -568,10 +488,6 @@
       
     });
   </script>
-  
-  
-  
-
 
   </body>
   

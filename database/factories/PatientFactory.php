@@ -16,7 +16,7 @@ class PatientFactory extends Factory
      */
     public function definition()
     {
-        $type = ['App\Models\Inpatient', 'App\Models\Outpatient'];
+        $type = ['inpatient', 'outpatient'];
         //      $table->id();
         //      $table->string('name');
         //      $table->string('NIK');

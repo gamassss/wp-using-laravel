@@ -19,7 +19,7 @@ class UserFactory extends Factory
     public function definition()
     {
         $password = bcrypt(fake()->password);
-        $type = ['App\Models\Admin', 'App\Models\Staff', 'App\Models\Doctor'];
+        $type = ['admin', 'staff', 'doctor'];
         
 
         return [

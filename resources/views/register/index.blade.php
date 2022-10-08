@@ -26,7 +26,7 @@
                             <form action="/register" method="post">
                                 @csrf
 
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label class="mb-2 text-muted" for="name">Name</label>
                                     <input id="name" type="text" class="form-control @error('name')is-invalid @enderror" name="name" required value="{{ old('name') }}">
                                     @error('name')
@@ -44,9 +44,9 @@
                                         {{ $message }}
                                     </div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label class="mb-2 text-muted" for="profesi">Profesi</label>
                                     <select id="profesi" class="form-select" aria-label="Default select example" name="type">
                                         <option selected>Open this select menu</option>
@@ -59,7 +59,7 @@
                                         {{ $message }}
                                     </div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
@@ -74,6 +74,16 @@
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="password">Password</label>
                                     <input id="password" type="password" class="form-control @error('password')is-invalid @enderror" name="password" required>
+                                    @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="password_confirmation">Confirm Password</label>
+                                    <input id="password_confirmation" type="password" class="form-control @error('password')is-invalid @enderror" name="password_confirmation" required>
                                     @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -107,6 +117,21 @@
     </section>
 
     <script src="{{ asset('js/login.js') }}"></script>
+
+    <script>
+        let exist = '{{Session::has('errors')}}';
+        let msg = '{{Session::get('errors')}}';
+        msg = msg.replace(/&quot;/g, '\"');
+
+        if(exist){
+            let json = JSON.parse(msg);
+            let emailErr = ((typeof (json["email"]) !== 'undefined') ? json["email"] : '');
+            let passErr = ((typeof (json["password_confirmation"]) !== 'undefined') ? json["password_confirmation"] : '');
+            let alertText = emailErr + "\n" + passErr;
+            alert(alertText);
+        }
+    </script>
+
 </body>
 
 </html>

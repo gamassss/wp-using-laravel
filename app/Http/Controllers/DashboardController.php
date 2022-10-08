@@ -14,13 +14,18 @@ class DashboardController extends Controller
 
         $jumlah_halaman = ceil(Patient::count() / 10);
         $role = explode('\\', Auth::user()->type);
+        if (Patient::count() == 0) {
+            $jumlah_pasien = 0;
+        } else {
+            $jumlah_pasien = Patient::count();
+        }
         //masuk dashboard langsung menampilkan data seluruh pasien
-        return view('dashboard.index',[
+        return view('dashboard.patients.index',[
             'title' => 'Dashboard',
             'data' => 'Pasien',
             'jml_hal' => $jumlah_halaman,
-            'type' => $role[2],
-            'jumlah_pasien' => Patient::count(),
+            'type' => Auth::user()->type,
+            'jumlah_pasien' => $jumlah_pasien ,
             'patients' => Patient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()
         ]);
