@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Patient;
 use App\Models\Poli;
+use App\Models\Patient;
+use Illuminate\Http\Request;
+use App\Exports\PatientExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PatientExport;
 
 class PasienController extends Controller
 {
@@ -20,7 +21,6 @@ class PasienController extends Controller
             'title' => 'Data Pasien',
             'data' => 'Pasien',
             'jml_hal' => $jumlah_halaman,
-            'type' => $role[2],
             'jumlah_pasien' => Patient::count(),
             'patients' => Patient::latest()->filter(request(['search']))->paginate(10),
             'polis' => Poli::all()

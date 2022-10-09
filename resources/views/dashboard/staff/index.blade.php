@@ -39,44 +39,16 @@
     </div>
     <ul class="list-unstyled component m-0">
       
-      <li class="dropdown">
-      <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-      class="dropdown-toggle">
-      <i class="material-icons">personal_injury</i>Pasien
-      </a>
-        <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-          <li class="{{ Request::is('dashboard/pasien') ? 'active' : '' }}"><a href="/dashboard/pasien">Pasien</a></li>
-          <li class="{{ Request::is('dashboard/pri') ? 'active' : '' }}"><a href="/dashboard/pri">Pasien Rawat Inap</a></li>
-          <li class="{{ Request::is('dashboard/prj') ? 'active' : '' }}"><a href="/dashboard/prj">Pasien Rawat Jalan</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
-        class="dropdown-toggle">
-        <i class="material-icons">account_circle</i>Dokter
-        </a>
-        <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-          @foreach ($polis as $poli)
-            <li><a href="#">{{ $poli->name }}</a></li>  
-          @endforeach
-        </ul>
-      </li>
-      
-      @if ($data == 'Pasien')
-          <?php $slug = 'pasien' ?>
-      @elseif ($data == 'Pasien Rawat Inap')
-          <?php $slug = 'pri' ?>
-      @else
-          <?php $slug = 'prj' ?>
-      @endif
-
       <li class="">
-      <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
+        <a href="#" class=""><i class="material-icons">personal_injury</i>Pasien </a>
       </li>
 
       <li class="">
-      <a href="/exportpasien/{{ $slug }}" class=""><i class="material-icons">library_books</i>Copy </a>
+        <a href="#" class=""><i class="material-icons">account_circle</i>Dokter </a>
+      </li>
+
+      <li class="">
+        <a href="#" class=""><i class="material-icons">library_books</i>Copy </a>
       </li>
     
     </ul>

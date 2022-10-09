@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Outpatient;
 use App\Models\Poli;
+use App\Models\Outpatient;
+use Illuminate\Http\Request;
+use App\Exports\OutpatientExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\OutpatientExport;
 
 class PrjController extends Controller
 {

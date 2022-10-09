@@ -63,7 +63,7 @@
 
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
-                                    <input id="email" type="email" class="form-control @error('email')is-invalid @enderror" name="email" required value="{{ old('email') }}">
+                                    <input id="email" type="email" class="form-control @error('email')is-invalid @enderror" name="email" required autofocus value="{{ old('email') }}">
                                     @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}

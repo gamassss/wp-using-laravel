@@ -33,6 +33,13 @@
   color: #2582A1;
 }
 
+.container #app-h1 {
+  font-family: 'Abyssinica SIL', serif;
+  font-size: 50px;
+  font-weight: 300;
+  color: black;
+}
+
 .row .col-md-4 .head-quest {
   font-family: 'Abyssinica SIL', serif;
   font-size: 50px;

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Inpatient;
 use App\Models\Poli;
+use App\Models\Inpatient;
+use Illuminate\Http\Request;
+use App\Exports\InpatientExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\InpatientExport;
 
 class PriController extends Controller
 {

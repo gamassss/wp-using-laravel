@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Doctor;
 
-use Illuminate\Http\Request;
-use App\Models\Patient;
 use App\Models\Poli;
+use App\Models\Patient;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class DoctorController extends Controller
 {
     public function index()
     {
-
         $jumlah_halaman = ceil(Patient::count() / 10);
         $role = explode('\\', Auth::user()->type);
         if (Patient::count() == 0) {
@@ -20,7 +20,7 @@ class DashboardController extends Controller
             $jumlah_pasien = Patient::count();
         }
         //masuk dashboard langsung menampilkan data seluruh pasien
-        return view('dashboard.patients.index',[
+        return view('dashboard.doctor.index',[
             'title' => 'Dashboard',
             'data' => 'Pasien',
             'jml_hal' => $jumlah_halaman,

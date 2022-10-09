@@ -2,57 +2,7 @@
     
 @section('container')
 
-    {{-- <div class="container-fluid">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://source.unsplash.com/1000x400?hospital-room" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Excellent Treatment</h5>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis deleniti dolorum, voluptatum
-                            qui quasi cupiditate.</p>
-                        <p><a href="#" class="btn btn-warning mt-3">Make an appointment</a></p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://source.unsplash.com/1000x400?hospital" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Coordinated Care</h5>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, ipsum.</p>
-                        <p><a href="#" class="btn btn-warning mt-3">Make an appointment</a></p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://source.unsplash.com/1000x400?nurse" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Deliver compassionate care</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis placeat blanditiis ab
-                            corporis!</p>
-                        <p><a href="#" class="btn btn-warning mt-3">Make an appointment</a></p>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div> --}}
-    <div class="banner">
+    <div class="banner" id="home">
         <img src="img/docpic.ashx" style="max-width: 100%; aspect-ratio: 2;" class="px-1 position-relative" alt="">
         <h1 class="col-md-6 px-5 position-absolute top-50 text-white" style="font-size: 4em; font-family: 'Abyssinica SIL', serif;">When you need answers, you know where to go<br><p class="fs-3 pt-3">The No.1 hospital in the nation, for you.</p></h1>
     </div>
@@ -152,6 +102,11 @@
         <div class="container text-center">
             <h1 class="pt-5 mb-5">Our Doctors</h1>
             <div class="row">
+                <div class="d-grid gap-2 col-2 mb-3 ms-auto">
+                    <div class="btn btn-success rounded-pill px-0 py-2 justify-content-center">View more </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">
@@ -203,8 +158,11 @@
             </div>
         </div>
     </section>
-    <div class="d-grid gap-2 col-2 my-4 mx-auto">
-        <div class="btn btn-success rounded-pill px-2 py-2 justify-content-center">View more</div>
+
+    <div class="row">
+        <div class="d-grid gap-2 col-2 my-4 mx-auto">
+            <div class="btn btn-success rounded-pill px-2 py-2 justify-content-center"><a href="/find-doctor" class="text-decoration-none text-white">Book an appointment</a></div>
+        </div>
     </div>
 
     <footer id="contact" class="bg-dark text-white pt-5 pb-4 mt-5">

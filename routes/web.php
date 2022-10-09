@@ -1,17 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PriController;
-use App\Http\Controllers\PrjController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PasienController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardPasienController;
-use App\Http\Controllers\DashboardPriController;
-use App\Http\Controllers\DashboardPrjController;
+use App\Http\Controllers\Admin\PriController;
+use App\Http\Controllers\Admin\PrjController;
+use App\Http\Controllers\FindDoctorController;
+use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Admin\PasienController;
+use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DashboardPriController;
+use App\Http\Controllers\Admin\DashboardPrjController;
+use App\Http\Controllers\Admin\DashboardPasienController;
 
 
 /*
@@ -25,45 +28,58 @@ use App\Http\Controllers\DashboardPrjController;
 |
 */
 
-// Route::get('/', [LoginController::class, 'index']);
 Route::get('/', [LandingController::class, 'index']);
+
+Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/content', function() {
   return view('content');
 });
 
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/find-doctor', [FindDoctorController::class, 'index']);
+
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
-
-Route::get('/home', [HomeController::class, 'index']);
-
-Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/pasien', [PasienController::class, 'index']);
-Route::post('/pasien/tambah', [PasienController::class, 'tambah']);
+//Route untuk guest only, auth user tidak bisa akses
+Route::group(['middleware' => 'guest'], function() {
+  Route::get('/login', [LoginController::class, 'index']);
+  Route::get('/register', [RegisterController::class, 'index']);
+});
 
-Route::get('/exportpasien/pasien', [PasienController::class, 'pasienExport']);
-Route::get('/exportpasien/pri', [PriController::class, 'pasienExport']);
-Route::get('/exportpasien/prj', [PrjController::class, 'pasienExport']);
+//Route untuk yangg sudah login
+Route::group(['middleware' => ['auth']], function() {
 
+  //Route untuk semua auth
+  Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+  //Route untuk admin
+  Route::group(['middleware' => 'cektipe:admin'], function() {
+    Route::group(['prefix' => 'exportpasien'], function() {
+      Route::get('/pasien', [PasienController::class, 'pasienExport']);
+      Route::get('/pri', [PriController::class, 'pasienExport']);
+      Route::get('/prj', [PrjController::class, 'pasienExport']);
+    });
+  
+    Route::group(['prefix' => 'dashboard'], function() {
+      Route::get('/', [DashboardController::class, 'index']);
+      Route::resource('/pasien', DashboardPasienController::class);
+      Route::delete('/pasien/{patient}', [DashboardPasienController::class, 'destroy']);
+      Route::resource('/pri', DashboardPriController::class);
+      Route::resource('/prj', DashboardPrjController::class);
+    });
+  });
 
-// Route::get('/dashboard/pri', [PriController::class, 'index']);
+  //Route untuk dokter
+  Route::group(['prefix' => 'doctor','middleware' => 'cektipe:doctor'], function() {
+    Route::get('/dashboard', [DoctorController::class, 'index']);
+  });
 
-// Route::get('/dashboard/prj', [PrjController::class, 'index']);
-
-Route::resource('/dashboard/pasien', DashboardPasienController::class)->middleware('auth');
-
-// Route::get('/dashboard/pasien/{patient}/edit', [DashboardPasienController::class, 'edit'])->middleware('auth');
-
-Route::delete('/dashboard/pasien/{patient}', [DashboardPasienController::class, 'destroy'])->middleware('auth');
-// Route::put('/dashboard/pasien/{patient}/', [DashboardPasienController::class, 'update']);
-
-Route::resource('/dashboard/pri', DashboardPriController::class)->middleware('auth');
-
-Route::resource('/dashboard/prj', DashboardPrjController::class)->middleware('auth');
+  //Route untuk dokter
+  Route::group(['prefix' => 'staff','middleware' => 'cektipe:staff'], function() {
+    Route::get('/dashboard', [StaffController::class, 'index']);
+  });
+  
+});
 
 

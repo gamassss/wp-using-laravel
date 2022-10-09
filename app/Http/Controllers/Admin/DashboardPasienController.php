@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Patient;
 use App\Models\Poli;
+use App\Models\Patient;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardPasienController extends Controller
@@ -62,7 +63,7 @@ class DashboardPasienController extends Controller
             'type' => 'required',
         ]);
 
-        Patient::create($validateData);
+        Patient::create($validatedData);
 
         return redirect('/dashboard/pasien')->with('success', 'New patient data has been added.');
     }
