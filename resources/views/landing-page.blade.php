@@ -1,6 +1,11 @@
 @extends('layouts.main')
     
 @section('container')
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="banner" id="home">
         <img src="img/docpic.ashx" style="max-width: 100%; aspect-ratio: 2;" class="px-1 position-relative" alt="">

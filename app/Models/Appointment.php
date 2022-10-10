@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Doctor;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Recipe extends Model
+class Appointment extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function doctor()
+    protected $dates = ['tanggal'];
+
+    public function doctors()
     {
         return $this->belongsTo(Doctor::class);
     }

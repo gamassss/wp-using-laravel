@@ -9,4 +9,9 @@ use Parental\HasParent;
 class Staff extends User
 {
     use HasParent;
+
+    public function poli()
+    {
+        return $this->belongsTo(Poli::class);
+    }
 }

@@ -18,4 +18,9 @@ class Poli extends Model
     {
         return $this->hasMany(PoliDetail::class);
     }
+
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
 }

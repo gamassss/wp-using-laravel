@@ -11,7 +11,6 @@
 
     <title>{{ $title }}</title>
 </head>
-
 <body>
     @if(session('success'))
     <div class="row justify-content-center">

@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('doctor_id');
-            $table->string('nama_resep');
-            $table->longtext('detail_resep');
-            $table->date('tgl_resep');
+            $table->date('tanggal');
+            $table->time('jam');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('appointments');
     }
 };

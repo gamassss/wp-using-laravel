@@ -36,45 +36,41 @@
       </div>
     </div>
 
-    <form action="">
+    <form action="/find-doctor" method="post">
+      @csrf
       <div class="row">
         <div class="col-md-12">
 
           <div class="col-md-5 mb-3">
-            <select name="cars" id="cars" class="px-4 py-2 " style="width: 100%">
-              <option value="volvo">Choose Speciality</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
+            <select name="doctor_id" id="doctors" class="px-4 py-2 " style="width: 100%">
+              <option value="">Choose Doctor</option>
+              @foreach ($doctors as $doctor)
+              <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+              @endforeach
             </select>
           </div>
-
+          <?php $now = Carbon\Carbon::now()
+          // $now = $now->toDateTimeString();
+          ?>
           <div class="col-md-5 mb-3">
-            <select name="cars" id="cars" class="px-4 py-2 " style="width: 100%">
-              <option value="volvo">Choose Doctor</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
+            <label for="" class="ms-3">Choose Date</label>
+            <input type="date" name="tanggal" value={{ $now }} placeholder="Choose Date" min="2022-01-01" max="2022-12-31">
           </div>
 
           <div class="col-md-5 mb-3">
-            <input type="text" data-toggle="datepicker" class="px-4 py-2" style="width:100%" placeholder="Choose Date">
-          </div>
-
-          <div class="col-md-5 mb-3">
-            <select name="cars" id="cars" class="px-4 py-2 " style="width: 100%">
-              <option value="volvo">Choose Time</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
+            <select name="jam" id="cars" class="px-4 py-2 " style="width: 100%">
+              <option value="">Choose Time</option>
+              <option value="10:00:00">10:00</option>
+              <option value="11:00:00">11:00</option>
+              <option value="12:00:00">12:00</option>
+              <option value="13:00:00">13:00</option>
             </select>
           </div>
 
         </div>
       </div>
 
-      <button type="button" class="btn btn-success px-4 py-2">Book</button>
+      <button type="submit" class="btn btn-success px-4 py-2">Book</button>
 
     </form>
 
@@ -179,6 +175,18 @@
 
     </div>
 
-</footer>
+  </footer>
+
+  
+  <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+
+    <script>
+      $(function() {
+        $('#datetimepicker').datetimepicker();
+      });
+    </script> 
+
 </body>
+
 </html>

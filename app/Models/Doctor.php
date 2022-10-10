@@ -19,4 +19,9 @@ class Doctor extends User
   {
     return $this->belongsTo(Poli::class);
   }
+
+  public function appointments()
+  {
+    return $this->hasMany(Appointment::class);
+  }
 }

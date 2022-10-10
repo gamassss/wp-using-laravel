@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DashboardPriController;
 use App\Http\Controllers\Admin\DashboardPrjController;
 use App\Http\Controllers\Admin\DashboardPasienController;
+use App\Http\Controllers\Doctor\DashboardRecipeController;
 
 
 /*
@@ -35,6 +36,8 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/content', function() {
   return view('content');
 });
+
+Route::post('/find-doctor', [FindDoctorController::class, 'store']);
 
 Route::get('/find-doctor', [FindDoctorController::class, 'index']);
 
@@ -73,6 +76,9 @@ Route::group(['middleware' => ['auth']], function() {
   //Route untuk dokter
   Route::group(['prefix' => 'doctor','middleware' => 'cektipe:doctor'], function() {
     Route::get('/dashboard', [DoctorController::class, 'index']);
+    Route::get('/appointment', [DoctorController::class, 'appointment']);
+    // Route::get('/resep', [DoctorController::class, 'resep']);
+    Route::resource('/resep', DashboardRecipeController::class);
   });
 
   //Route untuk dokter
