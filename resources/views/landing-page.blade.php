@@ -2,8 +2,9 @@
     
 @section('container')
     @if (session('success'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -166,7 +167,7 @@
 
     <div class="row">
         <div class="d-grid gap-2 col-2 my-4 mx-auto">
-            <div class="btn btn-success rounded-pill px-2 py-2 justify-content-center"><a href="/find-doctor" class="text-decoration-none text-white">Book an appointment</a></div>
+            <div class="btn btn-success rounded-pill px-2 py-2 justify-content-center"><a href="/find-doctor" target="_blank" class="text-decoration-none text-white">Book an appointment</a></div>
         </div>
     </div>
 

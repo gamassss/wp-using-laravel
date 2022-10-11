@@ -14,6 +14,8 @@ use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DashboardPriController;
 use App\Http\Controllers\Admin\DashboardPrjController;
+use App\Http\Controllers\Admin\DashboardUserController;
+use App\Http\Controllers\Admin\DashboardDoctorController;
 use App\Http\Controllers\Admin\DashboardPasienController;
 use App\Http\Controllers\Doctor\DashboardRecipeController;
 
@@ -46,7 +48,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 //Route untuk guest only, auth user tidak bisa akses
 Route::group(['middleware' => 'guest'], function() {
-  Route::get('/login', [LoginController::class, 'index']);
+  Route::get('/login', [LoginController::class, 'index'])->name('login');
   Route::get('/register', [RegisterController::class, 'index']);
 });
 
@@ -70,6 +72,8 @@ Route::group(['middleware' => ['auth']], function() {
       Route::delete('/pasien/{patient}', [DashboardPasienController::class, 'destroy']);
       Route::resource('/pri', DashboardPriController::class);
       Route::resource('/prj', DashboardPrjController::class);
+      Route::resource('/doctor', DashboardDoctorController::class);
+      Route::resource('/user', DashboardUserController::class);
     });
   });
 

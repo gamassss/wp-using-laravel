@@ -51,7 +51,14 @@
         </ul>
       </li>
 
-      <li class="dropdown">
+      <li class="">
+        <a href="/dashboard/doctor" class=""><i class="material-icons">account_circle</i>Dokter </a>
+      </li>
+
+      <li class="">
+        <a href="/dashboard/user" class=""><i class="material-icons">account_circle</i>User </a>
+      </li>
+      {{-- <li class="dropdown">
         <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
         class="dropdown-toggle">
         <i class="material-icons">account_circle</i>Dokter
@@ -61,7 +68,7 @@
             <li><a href="#">{{ $poli->name }}</a></li>  
           @endforeach
         </ul>
-      </li>
+      </li> --}}
       
       @if ($data == 'Pasien')
           <?php $slug = 'pasien' ?>
@@ -71,9 +78,9 @@
           <?php $slug = 'prj' ?>
       @endif
 
-      <li class="">
+      {{-- <li class="">
       <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
-      </li>
+      </li> --}}
 
       <li class="">
       <a href="/exportpasien/{{ $slug }}" class=""><i class="material-icons">library_books</i>Copy </a>
@@ -205,29 +212,24 @@
                 <input type="checkbox" id="selectAll">
                 <label for="selectAll"></label></th>
                 <th>Name</th>
-                <th>NIK</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Actions</th>
+                <th>Email</th>
                 </tr>
                 </thead>
                 
                 <tbody>
                 
-                @foreach ($patients as $patient)
+                @foreach ($users as $user)
                 <tr>
                   <th><span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
+                  <input type="checkbox" id="checkbox1" name="option[]" value="{{ $user->id }}">
                   <label for="checkbox1"></label></th>
-                  <th>{{ $patient->name }}</th>
-                  <th>{{ $patient->NIK }}</th>
-                  <th>{{ $patient->alamat }}</th>
-                  <th>{{ $patient->no_tlp }}</th>
+                  <th>{{ $user->name }}</th>
+                  <th>{{ $user->email }}</th>
                   <th>
-                    <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
+                    <a href="/dashboard/user/{{ $user->id }}/edit" style="color: #FFBC49" class="edit" >
                       <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>
-                    <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
+                    <form action="/dashboard/user/{{ $user->id }}" method="post" class="d-inline">
                       @method('delete')
                       @csrf
                       {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
@@ -246,7 +248,7 @@
                   
               </table>
 
-              @if (!$patients->count())
+              @if (!$users->count())
                   <p class="text-center">No patients found.</p>
               @endif
               
@@ -257,14 +259,14 @@
                   $pageActive = 1;
                 }
 
-                if ($jumlah_pasien == 0) {
+                if ($jumlah_user == 0) {
                   $data_tampil = 0;
                 } else {
                   $data_tampil = 10;
                 }
               ?>
               <div class="clearfix">
-                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
+                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_user%10 : $data_tampil }}</b> out of <b>{{ $jumlah_user }}</b></div>
                 <ul class="pagination">
                   @if (isset($_GET['page']))
                     @if ($pageActive > 1)

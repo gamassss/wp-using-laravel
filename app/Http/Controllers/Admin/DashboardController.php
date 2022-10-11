@@ -21,7 +21,7 @@ class DashboardController extends Controller
             $jumlah_pasien = Patient::count();
         }
         //masuk dashboard langsung menampilkan data seluruh pasien
-        return view('dashboard.patients.index',[
+        return view('dashboard.admin.index',[
             'title' => 'Dashboard',
             'data' => 'Pasien',
             'jml_hal' => $jumlah_halaman,

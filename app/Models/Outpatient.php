@@ -11,9 +11,11 @@ class Outpatient extends Patient
 {
     use HasParent;
 
-        
+    protected $guarded = ['id'];
+
     public function poli_details()
     {
         return $this->hasMany(PoliDetail::class);
     }
+
 }
