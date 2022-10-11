@@ -26,15 +26,14 @@ class DashboardUserController extends Controller
             $jumlah_user = User::count();
         }
 
-        return view('dashboard.admin.user',[
+        return view('dashboard.admin.index',[
             'title' => 'Data Users',
             'data' => 'Data Users',
             'jml_hal' => $jumlah_halaman,
             'type' => Auth::user()->type,
             'jumlah_user' => $jumlah_user,
-            'users' => User::latest()->get()
-            // ->filter(request(['search']))->paginate(10),
-            // 'polis' => Poli::all()
+            'users' => User::latest()->filter(request(['search']))->paginate(10),
+            // 'polis' => Poli::all()p
         ]);
     }
 
@@ -76,9 +75,14 @@ class DashboardUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('dashboard.admin.user-edit', [
+            'title' => 'Edit Data User',
+            'patient' => $user,
+            'type' => Auth::user()->type,
+            // 'polis' => Poli::all()
+        ]);
     }
 
     /**
@@ -88,9 +92,20 @@ class DashboardUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        dd($user);
+        // $validatedData = $request->validate([
+        //     'name' => 'required|max:255',
+        //     'email' => 'required|max:16',
+        //     'username' => 'required',
+        //     'type' => 'required',
+        // ]);
+
+        // User::where('id', $user->id)
+        //         ->update($validatedData);
+
+        // return redirect('/dashboard/user')->with('success', 'User data has been updated.');
     }
 
     /**

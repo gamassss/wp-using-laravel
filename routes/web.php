@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Admin\PriController;
 use App\Http\Controllers\Admin\PrjController;
 use App\Http\Controllers\FindDoctorController;
+use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Doctor\DoctorController;
@@ -73,7 +74,7 @@ Route::group(['middleware' => ['auth']], function() {
       Route::resource('/pri', DashboardPriController::class);
       Route::resource('/prj', DashboardPrjController::class);
       Route::resource('/doctor', DashboardDoctorController::class);
-      Route::resource('/user', DashboardUserController::class);
+      Route::resource('/users', EditProfileController::class);
     });
   });
 

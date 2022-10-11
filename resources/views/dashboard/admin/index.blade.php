@@ -76,7 +76,7 @@
       </li>
 
       <li class="">
-        <a href="/dashboard/user" class=""><i class="material-icons">account_circle</i>User </a>
+        <a href="/dashboard/users" class=""><i class="material-icons">person</i>User </a>
       </li>
       {{-- <li class="">
       <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
@@ -136,6 +136,7 @@
                 </a>
                   <ul class="dropdown-menu small-menu px-2">
                   <li>
+                    <a href="/dashboard/users/{{ Auth::user()->id }}/edit" style="font-size: 15px; padding-left: 0; margin-left:-5px" class="px-0"><i class="bi bi-person-lines-fill" style="margin-right: 5px"></i>Edit Profile</a>
                     <form action="/logout" method="post">
                       @csrf
                       <button type="submit" style="font-size: 14px;">
@@ -205,58 +206,148 @@
                 </div>
               </div>
               
+              @if (Request::is('dashboard') || Request::is('dashboard/pasien') || Request::is('dashboard/prj') || Request::is('dashboard/pri')) 
               <table class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                <th><span class="custom-checkbox">
-                <input type="checkbox" id="selectAll">
-                <label for="selectAll"></label></th>
-                <th>Name</th>
-                <th>NIK</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Actions</th>
-                </tr>
-                </thead>
-                
-                <tbody>
-                
-                @foreach ($patients as $patient)
+                <thead>
                 <tr>
-                  <th><span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
-                  <label for="checkbox1"></label></th>
-                  <th>{{ $patient->name }}</th>
-                  <th>{{ $patient->NIK }}</th>
-                  <th>{{ $patient->alamat }}</th>
-                  <th>{{ $patient->no_tlp }}</th>
-                  <th>
-                    <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
-                      <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                    </a>
-                    <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
-                      @method('delete')
-                      @csrf
-                      {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
-                      <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                      </button>
-                      {{-- </a> --}}
-                    </form>
-                  </th>
-                  </tr>
-                @endforeach
+              <th><span class="custom-checkbox">
+              <input type="checkbox" id="selectAll">
+              <label for="selectAll"></label></th>
+              <th>Name</th>
+              <th>NIK</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Actions</th>
+              </tr>
+              </thead>
+              
+              <tbody>
+              
+              @foreach ($patients as $patient)
+              <tr>
+                <th><span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
+                <label for="checkbox1"></label></th>
+                <th>{{ $patient->name }}</th>
+                <th>{{ $patient->NIK }}</th>
+                <th>{{ $patient->alamat }}</th>
+                <th>{{ $patient->no_tlp }}</th>
+                <th>
+                  <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                  </a>
+                  <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
+                    <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
+                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </button>
+                    {{-- </a> --}}
+                  </form>
+                </th>
+                </tr>
+              @endforeach
 
-                
-                </tbody>
-                
-                  
-              </table>
+              
+              </tbody>
+              
+              
+            </table>
 
               @if (!$patients->count())
+              <p class="text-center">No patients found.</p>
+              @endif
+
+              <?php 
+                  if (isset($_GET['page'])) {
+                    $pageActive = $_GET['page'];
+                  } else {
+                    $pageActive = 1;
+                  }
+
+                  if ($jumlah_pasien == 0) {
+                    $data_tampil = 0;
+                  } else {
+                    $data_tampil = 10;
+                  }
+                ?>
+
+                <div class="clearfix">
+                  <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
+                  <ul class="pagination">
+                    @if (isset($_GET['page']))
+                      @if ($pageActive > 1)
+                        <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
+                    @endif
+                    @for ($i = 0; $i < $jml_hal; $i++)
+                        <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                    @endfor
+                    @if ($pageActive < $jml_hal)
+                      <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
+                    @endif
+
+                    @else
+
+                      @for ($i = 0; $i < $jml_hal; $i++)
+                        <li class="page-item {{ ($i == 0) ? 'active' : '' }}"><a href="?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                      @endfor
+                        @if ($jml_hal != 1)
+                        <li class="page-item "><a href="?page=2" class="page-link">Next</a></li>  
+                        @endif
+                    @endif
+                </ul>
+                </div>
+
+
+              @elseif (Request::is('dashboard/doctor'))
+              <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+              <th><span class="custom-checkbox">
+              <input type="checkbox" id="selectAll">
+              <label for="selectAll"></label></th>
+              <th>Name</th>
+              <th>Email</th>
+              </tr>
+              </thead>
+              
+              <tbody>
+              
+              @foreach ($doctors as $doctor)
+              <tr>
+                <th><span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $doctor->id }}">
+                <label for="checkbox1"></label></th>
+                <th>{{ $doctor->name }}</th>
+                <th>{{ $doctor->email }}</th>
+                <th>
+                  <a href="/dashboard/doctor/{{ $doctor->id }}/edit" style="color: #FFBC49" class="edit" >
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                  </a>
+                  <form action="/dashboard/doctor/{{ $doctor->id }}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
+                    <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
+                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </button>
+                    {{-- </a> --}}
+                  </form>
+                </th>
+                </tr>
+              @endforeach
+
+              
+              </tbody>
+              
+                
+            </table>
+
+              @if (!$doctors->count())
                   <p class="text-center">No patients found.</p>
               @endif
-              
+
               <?php 
                 if (isset($_GET['page'])) {
                   $pageActive = $_GET['page'];
@@ -264,14 +355,14 @@
                   $pageActive = 1;
                 }
 
-                if ($jumlah_pasien == 0) {
+                if ($jumlah_doctor == 0) {
                   $data_tampil = 0;
                 } else {
                   $data_tampil = 10;
                 }
               ?>
               <div class="clearfix">
-                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
+                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_doctor%10 : $data_tampil }}</b> out of <b>{{ $jumlah_doctor }}</b></div>
                 <ul class="pagination">
                   @if (isset($_GET['page']))
                     @if ($pageActive > 1)
@@ -295,6 +386,100 @@
                   @endif
               </ul>
               </div>
+
+              @else
+
+              <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+              <th><span class="custom-checkbox">
+              <input type="checkbox" id="selectAll">
+              <label for="selectAll"></label></th>
+              <th>Name</th>
+              <th>Email</th>
+              </tr>
+              </thead>
+              
+              <tbody>
+              
+              @foreach ($users as $user)
+              <tr>
+                <th><span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $user->id }}">
+                <label for="checkbox1"></label></th>
+                <th>{{ $user->name }}</th>
+                <th>{{ $user->email }}</th>
+                <th>
+                  <a href="/dashboard/user/{{ $user->id }}/edit" style="color: #FFBC49" class="edit" >
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                  </a>
+                  <form action="/dashboard/user/{{ $user->id }}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
+                    <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
+                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </button>
+                    {{-- </a> --}}
+                  </form>
+                </th>
+                </tr>
+              @endforeach
+
+              
+              </tbody>
+              
+                
+            </table>
+
+              @if (!$users->count())
+                  <p class="text-center">No patients found.</p>
+              @endif
+
+              <?php 
+                if (isset($_GET['page'])) {
+                  $pageActive = $_GET['page'];
+                } else {
+                  $pageActive = 1;
+                }
+
+                if ($jumlah_user == 0) {
+                  $data_tampil = 0;
+                } else {
+                  $data_tampil = 10;
+                }
+              ?>
+              <div class="clearfix">
+                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_user%10 : $data_tampil }}</b> out of <b>{{ $jumlah_user }}</b></div>
+                <ul class="pagination">
+                  @if (isset($_GET['page']))
+                    @if ($pageActive > 1)
+                      <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
+                  @endif
+                  @for ($i = 0; $i < $jml_hal; $i++)
+                      <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                  @endfor
+                  @if ($pageActive < $jml_hal)
+                    <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
+                  @endif
+
+                  @else
+
+                    @for ($i = 0; $i < $jml_hal; $i++)
+                      <li class="page-item {{ ($i == 0) ? 'active' : '' }}"><a href="?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                    @endfor
+                      @if ($jml_hal != 1)
+                      <li class="page-item "><a href="?page=2" class="page-link">Next</a></li>  
+                      @endif
+                  @endif
+              </ul>
+              </div>
+
+              @endif
+
+              
+              
+              
               
             </div>
           </div>

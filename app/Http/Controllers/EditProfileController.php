@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Poli;
-use App\Models\Doctor;
-use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardDoctorController extends Controller
+class EditProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,23 +17,24 @@ class DashboardDoctorController extends Controller
      */
     public function index()
     {
-        $jumlah_halaman = ceil(Doctor::count() / 10);
+        $jumlah_halaman = ceil(User::count() / 10);
         $role = explode('\\', Auth::user()->type);
-        if (Doctor::count() == 0) {
-            $jumlah_doctor = 0;
+        $jumlah_user = User::count();
+        if (User::count() == 0) {
+            $jumlah_user = 0;
         } else {
-            $jumlah_doctor = Doctor::count();
+            $jumlah_user = User::count();
         }
 
         return view('dashboard.admin.index',[
-            'title' => 'Data Dokter',
-            'data' => 'Dokter',
+            'title' => 'Data Users',
+            'data' => 'Data Users',
             'jml_hal' => $jumlah_halaman,
             'type' => Auth::user()->type,
-            'jumlah_doctor' => $jumlah_doctor,
-            'doctors' => Doctor::latest()->get(),
-            // 'polis' => Poli::all()
-        ]); 
+            'jumlah_user' => $jumlah_user,
+            'users' => User::latest()->filter(request(['search']))->paginate(10),
+            // 'polis' => Poli::all()p
+        ]);
     }
 
     /**
@@ -75,9 +75,14 @@ class DashboardDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('dashboard.admin.user-edit', [
+            'title' => 'Edit Data User',
+            'patient' => $user,
+            'type' => Auth::user()->type,
+            // 'polis' => Poli::all()
+        ]);
     }
 
     /**
@@ -87,9 +92,9 @@ class DashboardDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $users)
     {
-        //
+        dd($users);
     }
 
     /**
