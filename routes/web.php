@@ -13,6 +13,7 @@ use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\AdminEditProfileController;
 use App\Http\Controllers\Admin\DashboardPriController;
 use App\Http\Controllers\Admin\DashboardPrjController;
 use App\Http\Controllers\Admin\DashboardUserController;
@@ -70,11 +71,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'dashboard'], function() {
       Route::get('/', [DashboardController::class, 'index']);
       Route::resource('/pasien', DashboardPasienController::class);
-      Route::delete('/pasien/{patient}', [DashboardPasienController::class, 'destroy']);
       Route::resource('/pri', DashboardPriController::class);
       Route::resource('/prj', DashboardPrjController::class);
       Route::resource('/doctor', DashboardDoctorController::class);
-      Route::resource('/users', EditProfileController::class);
+      Route::resource('/admins', AdminEditProfileController::class);
     });
   });
 

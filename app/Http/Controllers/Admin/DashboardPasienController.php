@@ -104,6 +104,7 @@ class DashboardPasienController extends Controller
      */
     public function update(Request $request, Patient $pasien)
     {
+        // dd($pasien);
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'NIK' => 'required|max:16',
@@ -125,9 +126,9 @@ class DashboardPasienController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Patient $patient)
+    public function destroy(Patient $pasien)
     {
-        Patient::destroy($patient->id);
+        Patient::destroy($pasien->id);
 
         return redirect('/dashboard/pasien')->with('danger', 'The patient data has been deleted.');
     }

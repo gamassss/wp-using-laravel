@@ -187,7 +187,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form action="/dashboard/users/{{ Auth::user()->id }}" method="post">
+                <form action="/dashboard/admins/{{ Auth::user()->id }}" method="post">
                   @method('put')
                   @csrf
                   <div class="form-group">
