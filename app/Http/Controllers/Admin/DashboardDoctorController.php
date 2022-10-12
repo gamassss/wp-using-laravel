@@ -107,7 +107,7 @@ class DashboardDoctorController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'username' => 'required',
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         // dd($validatedData);

@@ -32,7 +32,7 @@ class DashboardDoctorPrjController extends Controller
             'type' => Auth::user()->type,
             'jumlah_pasien' => $jumlah_pasien,
             'outpatients' => Outpatient::latest()->where('poli_id', Auth::user()->poli_id)->filter(request(['search']))->paginate(10),
-            // 'polis' => Poli::all()
+            'poli' => Poli::where('id', Auth::user()->poli_id)
         ]);
     }
 

@@ -189,6 +189,25 @@
                   <input type="hidden" name="type" value="{{ old($doctor->type) }}">
                   <input type="hidden" name="password" value="{{ old($doctor->password) }}">
                   
+                  <div class="my-3">
+                    <label for="poli_id">Poli</label><br>
+                    <select id="poli_id" class="form-select" aria-label="Default select example" name="poli_id">
+                        <option value="1" {{ ($doctor->poli_id == 1) ? 'selected' : '' }}>Kandungan</option>
+                        <option value="2" {{ ($doctor->poli_id == 2) ? 'selected' : '' }}>Mata</option>
+                        <option value="3" {{ ($doctor->poli_id == 3) ? 'selected' : '' }}>Bedah Umum</option>
+                        <option value="4" {{ ($doctor->poli_id == 4) ? 'selected' : '' }}>Saraf</option>
+                        <option value="5" {{ ($doctor->poli_id == 5) ? 'selected' : '' }}>THT</option>
+                        <option value="6" {{ ($doctor->poli_id == 6) ? 'selected' : '' }}>Paru</option>
+                        <option value="7" {{ ($doctor->poli_id == 7) ? 'selected' : '' }}>Penyakit Dalam</option>
+                        <option value="8" {{ ($doctor->poli_id == 8) ? 'selected' : '' }}>Jantung</option>
+                    </select>
+                    @error('type')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                  </div>
+
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $doctor->email) }}" required></input>

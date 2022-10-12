@@ -81,13 +81,14 @@ class DoctorEditProfileController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'username' => 'max:16',
-            'email' => 'required'
+            'email' => 'required',
+            'poli_id' => 'required'
         ]);
 
         Doctor::where('id', $doctor->id)
                 ->update($validatedData);
 
-        return redirect('/doctor/dashboard')->with('success', 'Your profile has been updated.');
+        return redirect('/doctor/prj')->with('success', 'Your profile has been updated.');
     }
 
     /**

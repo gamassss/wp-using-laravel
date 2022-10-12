@@ -31,7 +31,8 @@ class PatientFactory extends Factory
             'alamat' => fake()->address(),
             'jenis_kelamin' => mt_rand(1,2),
             'type' => $type[mt_rand(0,1)],
-            'no_tlp' => fake()->phoneNumber()
+            'no_tlp' => fake()->phoneNumber(),
+            'poli_id' => mt_rand(1,8)
         ];
     }
 }

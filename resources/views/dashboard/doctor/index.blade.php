@@ -171,12 +171,24 @@
 
               <a href="{{ $href_export }}" class="btn btn-primary mb-1 py-0 px-1">Export</a>
 
+              {{-- @dd(Auth::user()->poli_id) --}}
+              {{-- @dd($poli->get()->all()) --}}
+              @php 
+                if ($poli->get()->all() != null) {
+                  $poli = $poli->get()->all();
+                  $nama_poli = " Poli " . $poli[0]->name;
+                } else {
+                  $nama_poli = "";
+                }
+              @endphp
+              {{-- @dd($poli[0]->name) --}}
+
             <div class="table-wrapper">
               
               <div class="table-title">
                 <div class="row">
                   <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                    <h2 class="ml-lg-2">{{ $data }}</h2>
+                    <h2 class="ml-lg-2">{{ $data . $nama_poli }}</h2>
                 </div>
                 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
                   {{-- <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">

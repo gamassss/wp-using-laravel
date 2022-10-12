@@ -222,6 +222,7 @@
                       </div>
                       @enderror
                     </div>
+                    
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required></input>
