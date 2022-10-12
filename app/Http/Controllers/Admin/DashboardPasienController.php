@@ -32,7 +32,6 @@ class DashboardPasienController extends Controller
             'type' => Auth::user()->type,
             'jumlah_pasien' => $jumlah_pasien,
             'patients' => Patient::latest()->filter(request(['search']))->paginate(10),
-            'polis' => Poli::all()
         ]); 
     }
 

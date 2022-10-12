@@ -76,7 +76,7 @@
       </li>
 
       <li class="">
-        <a href="/dashboard/users" class=""><i class="material-icons">person</i>User </a>
+        <a href="/dashboard/user" class=""><i class="material-icons">person</i>User </a>
       </li>
       {{-- <li class="">
       <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
@@ -108,20 +108,55 @@
             </div>  
           </div>
           
-          <div class="col-md-5 col-lg-3 order-3 order-md-2">
+          @if (Request::is('dashboard/pasien') || Request::is('dashboard/pri') || Request::is('dashboard/prj'))
+            <div class="col-md-5 col-lg-3 order-3 order-md-2">
               <div class="xp-searchbar">
-                <form>
+                <form action="/dashboard/pasien" method="get">
+                  @csrf
                   <div class="input-group">
                   <input type="search" class="form-control"
                   placeholder="Search" name="search" value="{{ request('search') }}">
                   <div class="input-group-append">
                     <button class="btn" type="submit" id="button-addon2">Go
-                  </button>
+                    </button>
                   </div>
-                </div>
-              </form>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
+          @elseif(Request::is('dashboard/doctor'))
+            <div class="col-md-5 col-lg-3 order-3 order-md-2">
+              <div class="xp-searchbar">
+                <form action="/dashboard/doctor" method="get">
+                  @csrf
+                  <div class="input-group">
+                  <input type="search" class="form-control"
+                  placeholder="Search" name="search" value="{{ request('search') }}">
+                  <div class="input-group-append">
+                    <button class="btn" type="submit" id="button-addon2">Go
+                    </button>
+                  </div>
+                  </div>
+                </form>
+              </div>
+            </div>  
+          @else
+            <div class="col-md-5 col-lg-3 order-3 order-md-2">
+              <div class="xp-searchbar">
+                <form action="/dashboard/user" method="get">
+                  @csrf
+                  <div class="input-group">
+                  <input type="search" class="form-control"
+                  placeholder="Search" name="search" value="{{ request('search') }}">
+                  <div class="input-group-append">
+                    <button class="btn" type="submit" id="button-addon2">Go
+                    </button>
+                  </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          @endif
           
           
           <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
@@ -217,7 +252,7 @@
                   </div>
                 @else
                   <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addUserModal">
                     <i class="material-icons">&#xE147;</i>
                     <span>Add New User</span>
                     </a>
@@ -382,17 +417,23 @@
               @endif
 
               <?php 
-                if (isset($_GET['page'])) {
-                  $pageActive = $_GET['page'];
-                } else {
-                  $pageActive = 1;
-                }
+                  if (isset($_GET['page'])) {
+                    $pageActive = $_GET['page'];
+                  } else {
+                    $pageActive = 1;
+                  }
 
-                if ($jumlah_doctor == 0) {
-                  $data_tampil = 0;
-                } else {
-                  $data_tampil = 10;
-                }
+                  if ($jumlah_doctor == 0) {
+                    $data_tampil = 0;
+                  } else {
+                    $data_tampil = $doctors->count();
+                  }
+
+                  if (isset($_GET['search'])) {
+                    $jumlah_doctor = $data_tampil;
+                  }
+
+                  $jml_hal = ceil($jumlah_doctor/10);
               ?>
               <div class="clearfix">
                 <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_doctor%10 : $data_tampil }}</b> out of <b>{{ $jumlah_doctor }}</b></div>
@@ -472,7 +513,7 @@
               @endif
 
               <?php 
-                if (isset($_GET['page'])) {
+              if (isset($_GET['page'])) {
                   $pageActive = $_GET['page'];
                 } else {
                   $pageActive = 1;
@@ -481,8 +522,14 @@
                 if ($jumlah_user == 0) {
                   $data_tampil = 0;
                 } else {
-                  $data_tampil = 10;
+                  $data_tampil = $users->count();
                 }
+
+                if (isset($_GET['search'])) {
+                  $jumlah_user = $data_tampil;
+                }
+
+                $jml_hal = ceil($jumlah_user/10);
               ?>
               <div class="clearfix">
                 <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_user%10 : $data_tampil }}</b> out of <b>{{ $jumlah_user }}</b></div>
@@ -669,6 +716,83 @@
                   </div>
                 @enderror
               </div>
+              <div class="modal-footer" style="margin: 0 -30px">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </form>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+    {{-- Add modal User --}}
+    <div class="modal fade" tabindex="-1" id="addUserModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/dashboard/user" method="post">
+              @csrf
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                @error('name')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required>
+                @error('username')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              
+              <div class="my-3">
+                <label for="tipe">Tipe</label><br>
+                <select id="tipe" class="form-select" aria-label="Default select example" name="type">
+                    <option value="admin" selected>Admin</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="staff">Staff</option>
+                </select>
+                @error('type')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required></input>
+                @error('email')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+
+              {{-- default password --}}
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required></input>
+                @error('password')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+
               <div class="modal-footer" style="margin: 0 -30px">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-success">Add</button>

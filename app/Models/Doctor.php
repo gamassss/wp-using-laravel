@@ -10,6 +10,22 @@ class Doctor extends User
 {
   use HasParent;
 
+  public function scopeFilter($query, array $filters)
+    {
+        // if (isset($filters['search']) ? $filters['search'] : false) {
+        //     $query->where('name', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('NIK', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('alamat', 'like', '%' . $filters['search'] . '%')
+        //             ->orWhere('no_tlp', 'like', '%' . $filters['search'] . '%');
+        // }
+
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%');
+        });
+    }
+
   public function recipes()
   {
     return $this->hasMany(Recipe::class);

@@ -55,7 +55,19 @@ class DashboardUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'type' => 'required'
+        ]);
+
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
+        User::create($validatedData);
+
+        return redirect('/dashboard/user')->with('success', 'New User data has been added.');
     }
 
     /**
@@ -77,9 +89,9 @@ class DashboardUserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.admin.user-edit', [
+        return view('dashboard.users.edit', [
             'title' => 'Edit Data User',
-            'patient' => $user,
+            'user' => $user,
             'type' => Auth::user()->type,
             // 'polis' => Poli::all()
         ]);
@@ -94,18 +106,18 @@ class DashboardUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($user);
-        // $validatedData = $request->validate([
-        //     'name' => 'required|max:255',
-        //     'email' => 'required|max:16',
-        //     'username' => 'required',
-        //     'type' => 'required',
-        // ]);
+        // dd($user);
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'username' => 'required',
+            'type' => 'required',
+        ]);
 
-        // User::where('id', $user->id)
-        //         ->update($validatedData);
+        User::where('id', $user->id)
+                ->update($validatedData);
 
-        // return redirect('/dashboard/user')->with('success', 'User data has been updated.');
+        return redirect('/dashboard/user')->with('success', 'User data has been updated.');
     }
 
     /**
@@ -114,8 +126,10 @@ class DashboardUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        return redirect('/dashboard/user')->with('danger', 'The user data has been deleted.');
     }
 }

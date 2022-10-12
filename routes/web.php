@@ -74,8 +74,8 @@ Route::group(['middleware' => ['auth']], function() {
       Route::resource('/pri', DashboardPriController::class);
       Route::resource('/prj', DashboardPrjController::class);
       Route::resource('/doctor', DashboardDoctorController::class);
-      Route::resource('/admins', AdminEditProfileController::class);
-      Route::resource('/users', DashboardUserController::class);
+      // Route::resource('/admins', AdminEditProfileController::class);
+      Route::resource('/user', DashboardUserController::class);
     });
   });
 

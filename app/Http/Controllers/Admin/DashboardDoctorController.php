@@ -18,6 +18,7 @@ class DashboardDoctorController extends Controller
      */
     public function index()
     {
+
         $jumlah_halaman = ceil(Doctor::count() / 10);
         $role = explode('\\', Auth::user()->type);
         if (Doctor::count() == 0) {
@@ -32,7 +33,7 @@ class DashboardDoctorController extends Controller
             'jml_hal' => $jumlah_halaman,
             'type' => Auth::user()->type,
             'jumlah_doctor' => $jumlah_doctor,
-            'doctors' => Doctor::latest()->get(),
+            'doctors' => Doctor::latest()->filter(request(['search']))->paginate(10),
             // 'polis' => Poli::all()
         ]); 
     }
