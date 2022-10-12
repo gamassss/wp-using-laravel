@@ -269,8 +269,15 @@
                   if ($jumlah_pasien == 0) {
                     $data_tampil = 0;
                   } else {
-                    $data_tampil = 10;
+                    $data_tampil = $patients->count();
                   }
+
+                  if (isset($_GET['search'])) {
+                    $jumlah_pasien = $data_tampil;
+                  }
+
+                  $jml_hal = ceil($jumlah_pasien/10);
+                  
                 ?>
 
                 <div class="clearfix">

@@ -208,8 +208,8 @@
                     <div class="my-3">
                       <label for="pasien">Pasien</label><br>
                       <select id="pasien" class="form-select" aria-label="Default select example" name="type">
-                          <option value="App\Models\Inpatient" selected>Pasien Rawat Inap</option>
-                          <option value="App\Models\Outpatient">Pasien Rawat Jalan</option>
+                          <option value="inpatient" selected>Pasien Rawat Inap</option>
+                          <option value="outpatient">Pasien Rawat Jalan</option>
                       </select>
                       @error('type')
                       <div class="invalid-feedback">
