@@ -193,16 +193,42 @@
                   <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
                     <h2 class="ml-lg-2">{{ $data }}</h2>
                 </div>
-                <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-                  <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
-                  <i class="material-icons">&#xE147;</i>
-                  <span>Add New Patient</span>
-                  </a>
-                  {{-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-                  <i class="material-icons">&#xE15C;</i>
-                  <span>Delete</span>
-                  </a> --}}
-                </div>
+                @if (Request::is('dashboard/pasien') || Request::is('dashboard/pri') || Request::is('dashboard/prj')) 
+                  <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
+                    <i class="material-icons">&#xE147;</i>
+                    <span>Add New Patient</span>
+                    </a>
+                    {{-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+                    <i class="material-icons">&#xE15C;</i>
+                    <span>Delete</span>
+                    </a> --}}
+                  </div>
+                @elseif (Request::is('dashboard/doctor'))
+                  <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addDoctorModal">
+                    <i class="material-icons">&#xE147;</i>
+                    <span>Add New Doctor</span>
+                    </a>
+                    {{-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+                    <i class="material-icons">&#xE15C;</i>
+                    <span>Delete</span>
+                    </a> --}}
+                  </div>
+                @else
+                  <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
+                    <i class="material-icons">&#xE147;</i>
+                    <span>Add New User</span>
+                    </a>
+                    {{-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+                    <i class="material-icons">&#xE15C;</i>
+                    <span>Delete</span>
+                    </a> --}}
+                  </div>
+                @endif
+
+                
                 </div>
               </div>
               
@@ -403,6 +429,7 @@
               <input type="checkbox" id="selectAll">
               <label for="selectAll"></label></th>
               <th>Name</th>
+              <th>Tipe</th>
               <th>Email</th>
               </tr>
               </thead>
@@ -415,6 +442,7 @@
                 <input type="checkbox" id="checkbox1" name="option[]" value="{{ $user->id }}">
                 <label for="checkbox1"></label></th>
                 <th>{{ $user->name }}</th>
+                <th>{{ $user->type }}</th>
                 <th>{{ $user->email }}</th>
                 <th>
                   <a href="/dashboard/user/{{ $user->id }}/edit" style="color: #FFBC49" class="edit" >
@@ -493,6 +521,7 @@
           
           
                     <!----add-modal start--------->
+    {{-- Add modal Patient --}}
     <div class="modal fade" tabindex="-1" id="addPatientModal" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -576,6 +605,70 @@
                   </div>
                 @enderror
               </div> --}}
+              <div class="modal-footer" style="margin: 0 -30px">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </form>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+
+    {{-- Add modal Doctor --}}
+    <div class="modal fade" tabindex="-1" id="addDoctorModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Doctor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/dashboard/doctor" method="post">
+              @csrf
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                @error('name')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required>
+                @error('username')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              
+              <input type="hidden" value="doctor" name="type">
+              {{-- default password --}}
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required></input>
+                @error('password')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required></input>
+                @error('email')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
               <div class="modal-footer" style="margin: 0 -30px">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-success">Add</button>

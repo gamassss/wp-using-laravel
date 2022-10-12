@@ -55,7 +55,17 @@ class DashboardDoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'username' => 'required|max:16',
+            'email' => 'required',
+            'password' => 'required',
+            'type' => 'required'
+        ]);
+
+        Doctor::create($validatedData);
+
+        return redirect('/dashboard/doctor')->with('success', 'New doctor data has been added.');
     }
 
     /**

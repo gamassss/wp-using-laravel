@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']], function() {
       Route::resource('/prj', DashboardPrjController::class);
       Route::resource('/doctor', DashboardDoctorController::class);
       Route::resource('/admins', AdminEditProfileController::class);
+      Route::resource('/users', DashboardUserController::class);
     });
   });
 
