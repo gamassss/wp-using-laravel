@@ -78,13 +78,7 @@
       <li class="">
         <a href="/dashboard/user" class=""><i class="material-icons">person</i>User </a>
       </li>
-      {{-- <li class="">
-      <a href="#" class=""><i class="material-icons">date_range</i>Calendar </a>
-      </li> --}}
-
-      <li class="">
-      <a href="/exportpasien/{{ $slug }}" class=""><i class="material-icons">library_books</i>Copy </a>
-      </li>
+      
     
     </ul>
   </div>
@@ -218,9 +212,35 @@
         @endif 
 
 
-          <div class="main-content">
+          <div class="main-content pt-2">
           <div class="row">
             <div class="col-md-12">
+              {{-- export btn --}}
+
+              @if (Request::is('dashboard') || Request::is('dashboard/pasien'))
+                @php
+                  $href_export = '/exportpasien/pasien';
+                @endphp
+              @elseif (Request::is('dashboard/prj'))
+                @php
+                  $href_export = '/exportpasien/prj';
+                @endphp
+              @elseif (Request::is('dashboard/pri'))
+                @php
+                  $href_export = '/exportpasien/pri';
+                @endphp
+              @elseif (Request::is('dashboard/doctor'))
+                @php
+                  $href_export = '/exportdoctor';
+                @endphp              
+              @else
+                @php
+                  $href_export = '/exportuser';
+                @endphp
+              @endif
+              
+              <a href="{{ $href_export }}" class="btn btn-primary mb-1 py-0 px-1">Export</a>
+
             <div class="table-wrapper">
               
               <div class="table-title">
@@ -268,19 +288,20 @@
               </div>
               
               @if (Request::is('dashboard') || Request::is('dashboard/pasien') || Request::is('dashboard/prj') || Request::is('dashboard/pri')) 
+              
               <table class="table table-striped table-hover">
                 <thead>
-                <tr>
-              <th><span class="custom-checkbox">
-              <input type="checkbox" id="selectAll">
-              <label for="selectAll"></label></th>
-              <th>Name</th>
-              <th>NIK</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>Actions</th>
-              </tr>
-              </thead>
+                  <tr>
+                    <th><span class="custom-checkbox">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll"></label></th>
+                    <th>Name</th>
+                    <th>NIK</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
               
               <tbody>
               

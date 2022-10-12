@@ -7,8 +7,10 @@ use App\Models\Recipe;
 use App\Models\Patient;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Exports\DoctorExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DoctorController extends Controller
 {
@@ -73,5 +75,10 @@ class DoctorController extends Controller
             'type' => Auth::user()->type,
             'jumlah_recipe' => $jumlah_recipe
         ]);
+    }
+
+    public function doctorExport()
+    {
+        return Excel::download(new DoctorExport, 'dokter.xls');
     }
 }

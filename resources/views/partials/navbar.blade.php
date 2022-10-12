@@ -19,8 +19,29 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#contact">Contact Us</a>
                     </li>
+                    @if (Auth::check())
+                        
+                        @if (Auth::user()->type == 'admin')
+                            @php
+                                $href = '/dashboard';
+                            @endphp
+                        @elseif (Auth::user()->type == 'admin')
+                            @php
+                                $href = 'doctor/dashboard';
+                            @endphp
+                        @elseif (Auth::user()->type == 'admin')
+                            @php
+                                $href = 'staff/dashboard';
+                            @endphp
+                        @endif
+
+                    @else
+                        @php 
+                            $href = '/login';
+                        @endphp
+                    @endif
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login"><i
+                        <a class="nav-link active" aria-current="page" href="{{ $href }}"><i
                                 class="bi bi-person-fill me-2"></i>Login</a>
                     </li>
                 </ul>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RegisterController;
@@ -67,6 +68,10 @@ Route::group(['middleware' => ['auth']], function() {
       Route::get('/pri', [PriController::class, 'pasienExport']);
       Route::get('/prj', [PrjController::class, 'pasienExport']);
     });
+
+    Route::get('/exportdoctor', [DoctorController::class, 'doctorExport']);
+    Route::get('/exportuser', [UserController::class, 'userExport']);
+
   
     Route::group(['prefix' => 'dashboard'], function() {
       Route::get('/', [DashboardController::class, 'index']);
@@ -74,7 +79,6 @@ Route::group(['middleware' => ['auth']], function() {
       Route::resource('/pri', DashboardPriController::class);
       Route::resource('/prj', DashboardPrjController::class);
       Route::resource('/doctor', DashboardDoctorController::class);
-      // Route::resource('/admins', AdminEditProfileController::class);
       Route::resource('/user', DashboardUserController::class);
     });
   });
