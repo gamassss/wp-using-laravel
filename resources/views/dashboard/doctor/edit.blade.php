@@ -165,7 +165,7 @@
                   <div class="table-title">
                     <div class="row">
                       <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Edit Data Pasien</h2>
+                        <h2 class="ml-lg-2">Edit Data Dokter</h2>
                     </div>
                     </div>
                   </div>
@@ -175,98 +175,43 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form action="/dashboard/pasien/{{ $patient->id }}" method="post">
+                <form action="/dashboard/doctor/{{ $doctor->id }}" method="post">
                   @method('put')
                   @csrf
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $patient->name) }}" required autofocus>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $doctor->name) }}" required autofocus>
                     @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
+
                   <div class="form-group">
-                    <label for="nik">NIK</label>
-                    <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="NIK" value="{{ old('NIK', $patient->NIK) }}" required>
-                    @error('NIK')
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $doctor->username) }}" required>
+                    @error('username')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-                  @if ($patient->type === "App\Models\Inpatient")
-                    <div class="my-3">
-                      <label for="pasien">Pasien</label><br>
-                      <select id="pasien" class="form-select" aria-label="Default select example" name="type">
-                          <option value="inpatient" selected>Pasien Rawat Inap</option>
-                          <option value="outpatient">Pasien Rawat Jalan</option>
-                      </select>
-                      @error('type')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                      @enderror
-                    </div>
-                  @else
-                    <div class="my-3">
-                      <label for="pasien">Pasien</label><br>
-                      <select id="pasien" class="form-select" aria-label="Default select example" name="type">
-                          <option value="App\Models\Inpatient">Pasien Rawat Inap</option>
-                          <option value="App\Models\Outpatient" selected>Pasien Rawat Jalan</option>
-                      </select>
-                      @error('type')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                      @enderror
-                    </div>
-                  @endif
+
+                  <input type="hidden" name="type" value="{{ old($doctor->type) }}">
+                  <input type="hidden" name="password" value="{{ old($doctor->password) }}">
+                  
                   <div class="form-group">
-                    <label for="alamat">Address</label>
-                    <input id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat', $patient->alamat) }}" required></input>
-                    @error('alamat')
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $doctor->email) }}" required></input>
+                    @error('email')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-                  @if ($patient->jenis_kelamin == 1)
-                    <label>Jenis Kelamin</label><br>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1 checked>
-                      <label class="form-check-label" for="pria">Pria</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=2>
-                      <label class="form-check-label" for="wanita">Wanita</label>
-                    </div>
-                  @else
-                    <label>Jenis Kelamin</label><br>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1>
-                      <label class="form-check-label" for="pria">Pria</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=2 checked>
-                      <label class="form-check-label" for="wanita">Wanita</label>
-                    </div>
-                  @endif
-                  @error('jenis_kelamin')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    <div class="form-group">
-                      <label for="phone">Phone</label>
-                      <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp', $patient->no_tlp) }}" required>
-                      @error('no_tlp')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                      @enderror
-                    </div>
+
+                  
                   {{-- <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>

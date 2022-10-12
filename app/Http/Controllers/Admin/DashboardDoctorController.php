@@ -85,9 +85,13 @@ class DashboardDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Doctor $doctor)
     {
-        //
+        return view('dashboard.doctor.edit', [
+            'title' => 'Edit Data Dokter',
+            'doctor' => $doctor,
+            'type' => Auth::user()->type,
+        ]);
     }
 
     /**
@@ -97,9 +101,20 @@ class DashboardDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Doctor $doctor)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required'
+        ]);
+
+        // dd($validatedData);
+
+        Doctor::where('id', $doctor->id)
+                ->update($validatedData);
+
+        return redirect('/dashboard/doctor')->with('success', 'Doctor data has been updated.');
     }
 
     /**
@@ -108,8 +123,10 @@ class DashboardDoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Doctor $doctor)
     {
-        //
+        Doctor::destroy($doctor->id);
+
+        return redirect('/dashboard/doctor')->with('danger', 'The doctor data has been deleted.');
     }
 }
