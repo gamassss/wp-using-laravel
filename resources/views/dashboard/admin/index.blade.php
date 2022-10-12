@@ -347,23 +347,23 @@
                   } else {
                     $pageActive = 1;
                   }
-
+                  
                   if ($jumlah_pasien == 0) {
                     $data_tampil = 0;
                   } else {
                     $data_tampil = $patients->count();
                   }
-
+                  
                   if (isset($_GET['search'])) {
-                    $jumlah_pasien = $data_tampil;
+                    $jumlah_pasien = $patients->total();
                   }
-
+                  
                   $jml_hal = ceil($jumlah_pasien/10);
                   
                 ?>
 
                 <div class="clearfix">
-                  <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
+                  <div class="hint-text">showing <b>{{ $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
                   <ul class="pagination">
                     @if (isset($_GET['page']))
                       @if ($pageActive > 1)
@@ -451,13 +451,13 @@
                   }
 
                   if (isset($_GET['search'])) {
-                    $jumlah_doctor = $data_tampil;
+                    $jumlah_doctor = $doctors->total();
                   }
 
                   $jml_hal = ceil($jumlah_doctor/10);
               ?>
               <div class="clearfix">
-                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_doctor%10 : $data_tampil }}</b> out of <b>{{ $jumlah_doctor }}</b></div>
+                <div class="hint-text">showing <b>{{ $data_tampil }}</b> out of <b>{{ $jumlah_doctor }}</b></div>
                 <ul class="pagination">
                   @if (isset($_GET['page']))
                     @if ($pageActive > 1)
@@ -547,13 +547,14 @@
                 }
 
                 if (isset($_GET['search'])) {
-                  $jumlah_user = $data_tampil;
+                  // dd($users);
+                  $jumlah_user = $users->total();
                 }
 
                 $jml_hal = ceil($jumlah_user/10);
               ?>
               <div class="clearfix">
-                <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_user%10 : $data_tampil }}</b> out of <b>{{ $jumlah_user }}</b></div>
+                <div class="hint-text">showing <b>{{ $data_tampil }}</b> out of <b>{{ $jumlah_user }}</b></div>
                 <ul class="pagination">
                   @if (isset($_GET['page']))
                     @if ($pageActive > 1)
