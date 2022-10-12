@@ -50,10 +50,6 @@
       <li class="{{ (Request::is('doctor/resep')) ? 'active' : '' }}">
         <a href="/doctor/resep" class=""><i class="material-icons">receipt_long</i>Resep </a>
       </li>
-
-      <li class="">
-        <a href="/doctor/exportpasien-doctor" class=""><i class="material-icons">library_books</i>Copy </a>
-      </li>
     
     </ul>
   </div>
@@ -104,6 +100,9 @@
                   <span class="xp-user-live"></span>
                 </a>
                   <ul class="dropdown-menu small-menu px-2">
+                  <a href="/doctor/doctor/{{ Auth::user()->id }}/edit" style="font-size: 15px; padding-left: 0; margin-left:-5px" class="px-0">
+                    <i class="bi bi-person-lines-fill" style="margin-right: 5px"></i>Edit Profile
+                  </a>
                   <li>
                     <form action="/logout" method="post">
                       @csrf
@@ -151,9 +150,27 @@
         @endif 
 
 
-          <div class="main-content">
+          <div class="main-content pt-2">
           <div class="row">
             <div class="col-md-12">
+              {{-- export btn --}}
+
+              @if (Request::is('doctor/prj'))
+                @php
+                  $href_export = '/doctor/exportprj';
+                @endphp
+              @elseif (Request::is('doctor/appointment'))
+                @php
+                  $href_export = '/exportdoctor';
+                @endphp              
+              @else
+                @php
+                  $href_export = '/exportuser';
+                @endphp
+              @endif
+
+              <a href="{{ $href_export }}" class="btn btn-primary mb-1 py-0 px-1">Export</a>
+
             <div class="table-wrapper">
               
               <div class="table-title">
@@ -174,7 +191,7 @@
                 </div>
               </div>
               
-              @if (Request::is('doctor/dashboard'))
+              @if (Request::is('doctor/prj'))
               <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -191,28 +208,19 @@
               
               <tbody>
               
-              @foreach ($patients as $patient)
+              @foreach ($outpatients as $outpatient)
               <tr>
                 <th><span class="custom-checkbox">
-                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
+                <input type="checkbox" id="checkbox1" name="option[]" value="{{ $outpatient->id }}">
                 <label for="checkbox1"></label></th>
-                <th>{{ $patient->name }}</th>
-                <th>{{ $patient->NIK }}</th>
-                <th>{{ $patient->alamat }}</th>
-                <th>{{ $patient->no_tlp }}</th>
-                <th>
-                  <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
-                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                <th>{{ $outpatient->name }}</th>
+                <th>{{ $outpatient->NIK }}</th>
+                <th>{{ $outpatient->alamat }}</th>
+                <th>{{ $outpatient->no_tlp }}</th>
+                <th class="text-center">
+                  <a href="/doctor/prj/{{ $outpatient->id }}" style="color: #FFBC49" class="edit" >
+                    <i class="bi bi-eye"></i>
                   </a>
-                  <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
-                    <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
-                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </button>
-                    {{-- </a> --}}
-                  </form>
                 </th>
                 </tr>
               @endforeach
@@ -223,7 +231,7 @@
                 
             </table>
 
-            @if (!$patients->count())
+            @if (!$outpatients->count())
                 <p class="text-center">No patients found.</p>
             @endif
             
@@ -237,11 +245,17 @@
               if ($jumlah_pasien == 0) {
                 $data_tampil = 0;
               } else {
-                $data_tampil = 10;
+                $data_tampil = $outpatients->count();
               }
+
+              if (isset($_GET['search'])) {
+                $jumlah_pasien = $outpatients->total();
+              }
+                  
+              $jml_hal = ceil($jumlah_pasien/10);
             ?>
             <div class="clearfix">
-              <div class="hint-text">showing <b>{{ ($pageActive == $jml_hal) ? $jumlah_pasien%10 : $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
+              <div class="hint-text">showing <b>{{ $data_tampil }}</b> out of <b>{{ $jumlah_pasien }}</b></div>
               <ul class="pagination">
                 @if (isset($_GET['page']))
                   @if ($pageActive > 1)

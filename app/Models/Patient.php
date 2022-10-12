@@ -48,4 +48,9 @@ class Patient extends Model
     {
         return $this->hasMany(PatientDetail::class);
     }
+
+    public function poli_details()
+    {
+        return $this->hasMany(PoliDetail::class);
+    }
 }

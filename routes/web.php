@@ -15,12 +15,14 @@ use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AdminEditProfileController;
+use App\Http\Controllers\DoctorEditProfileController;
 use App\Http\Controllers\Admin\DashboardPriController;
 use App\Http\Controllers\Admin\DashboardPrjController;
 use App\Http\Controllers\Admin\DashboardUserController;
 use App\Http\Controllers\Admin\DashboardDoctorController;
 use App\Http\Controllers\Admin\DashboardPasienController;
 use App\Http\Controllers\Doctor\DashboardRecipeController;
+use App\Http\Controllers\Doctor\DashboardDoctorPrjController;
 
 
 /*
@@ -86,10 +88,14 @@ Route::group(['middleware' => ['auth']], function() {
 
   //Route untuk dokter
   Route::group(['prefix' => 'doctor','middleware' => 'cektipe:doctor'], function() {
-    Route::get('/dashboard', [DoctorController::class, 'index']);
+    // Route::get('/dashboard', [DoctorController::class, 'index']);
+    Route::resource('/prj', DashboardDoctorPrjController::class);
+    Route::resource('/doctor', DoctorEditProfileController::class);
     Route::get('/appointment', [DoctorController::class, 'appointment']);
     // Route::get('/resep', [DoctorController::class, 'resep']);
     Route::resource('/resep', DashboardRecipeController::class);
+    //belum dispesifikasikan berdasarkan poli
+    Route::get('/exportprj', [PrjController::class, 'pasienExport']);
   });
 
   //Route untuk dokter

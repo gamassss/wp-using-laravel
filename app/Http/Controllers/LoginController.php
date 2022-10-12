@@ -27,7 +27,7 @@ class LoginController extends Controller
             if(Auth::user()->type == 'admin') {
                 return redirect()->intended('/dashboard');
             } else if(Auth::user()->type == 'doctor') {
-                return redirect()->intended('doctor/dashboard');
+                return redirect()->intended('doctor/prj');
             } else if(Auth::user()->type == 'staff') {
                 return redirect()->intended('staff/dashboard');
             }

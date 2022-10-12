@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Doctor;
 
 use App\Models\Poli;
 use App\Models\Outpatient;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardPrjController extends Controller
+class DashboardDoctorPrjController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,16 +22,17 @@ class DashboardPrjController extends Controller
         if (Outpatient::count() == 0) {
             $jumlah_pasien = 0;
         } else {
-            $jumlah_pasien = Outpatient::count();
+            $jumlah_pasien = Outpatient::where('poli_id', Auth::user()->poli_id)->count();
         }
 
-        return view('dashboard.admin.index',[
+        return view('dashboard.doctor.index',[
             'title' => 'Data Pasien',
             'data' => 'Pasien Rawat Jalan',
             'jml_hal' => $jumlah_halaman,
             'type' => Auth::user()->type,
             'jumlah_pasien' => $jumlah_pasien,
-            'patients' => Outpatient::latest()->filter(request(['search']))->paginate(10),
+            'outpatients' => Outpatient::latest()->where('poli_id', Auth::user()->poli_id)->filter(request(['search']))->paginate(10),
+            // 'polis' => Poli::all()
         ]);
     }
 
@@ -59,33 +60,37 @@ class DashboardPrjController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Outpatient $outpatient)
+    public function show(Outpatient $prj)
     {
-        //
+        return view('dashboard.doctor.patient-show', [
+            'title' => 'Data Pasien',
+            'type' => Auth::user()->type,
+            'prj' => $prj
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Outpatient $outpatient)
+    public function edit(Outpatient $prj)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Outpatient $outpatient)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -93,10 +98,10 @@ class DashboardPrjController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Outpatient $outpatient)
+    public function destroy($id)
     {
         //
     }

@@ -37,28 +37,16 @@
     </div>
     <ul class="list-unstyled component m-0">
       
-      <li class="dropdown">
-      <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-      class="dropdown-toggle">
-      <i class="material-icons">personal_injury</i>Pasien
-      </a>
-        <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-          <li class="{{ Request::is('dashboard/pasien') ? 'active' : '' }}"><a href="/dashboard/pasien">Pasien</a></li>
-          <li class="{{ Request::is('dashboard/pri') ? 'active' : '' }}"><a href="/dashboard/pri">Pasien Rawat Inap</a></li>
-          <li class="{{ Request::is('dashboard/prj') ? 'active' : '' }}"><a href="/dashboard/prj">Pasien Rawat Jalan</a></li>
-        </ul>
+      <li class="{{ (Request::is('doctor/dashboard')) ? 'active' : '' }}">
+        <a href="/doctor/prj" class=""><i class="material-icons">personal_injury</i>Pasien </a>
       </li>
 
-      <li class="">
-        <a href="/dashboard/doctor" class=""><i class="material-icons">account_circle</i>Dokter </a>
-      </li>
-  
-      <li class="">
-        <a href="/dashboard/users" class=""><i class="material-icons">person</i>User </a>
+      <li class="{{ (Request::is('doctor/appointment')) ? 'active' : '' }}">
+        <a href="/doctor/appointment" class=""><i class="material-icons">calendar_month</i>Appointment </a>
       </li>
 
-      <li class="">
-      <a href="#" class=""><i class="material-icons">library_books</i>Copy </a>
+      <li class="{{ (Request::is('doctor/resep')) ? 'active' : '' }}">
+        <a href="/doctor/resep" class=""><i class="material-icons">receipt_long</i>Resep </a>
       </li>
     
     </ul>
@@ -165,7 +153,7 @@
                   <div class="table-title">
                     <div class="row">
                       <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Edit Data Dokter</h2>
+                        <h2 class="ml-lg-2">Data Pasien</h2>
                     </div>
                     </div>
                   </div>
@@ -175,57 +163,41 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form action="/dashboard/doctor/{{ $doctor->id }}" method="post">
-                  @method('put')
-                  @csrf
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $doctor->name) }}" required autofocus>
-                    @error('name')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                    @enderror
-                  </div>
 
-                  <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $doctor->username) }}" required>
-                    @error('username')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                    @enderror
+                <div class="card">
+                  <h5 class="card-header">Nama Pasien</h5>
+                  <div class="card-body pt-0 pb-2">
+                    <p class="card-text" style="font-size: 16px">{{ $prj->name }}</p>
                   </div>
+                </div>
 
-                  <input type="hidden" name="type" value="{{ old($doctor->type) }}">
-                  <input type="hidden" name="password" value="{{ old($doctor->password) }}">
-                  
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $doctor->email) }}" required></input>
-                    @error('email')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                    @enderror
+                <div class="card">
+                  <h5 class="card-header">NIK</h5>
+                  <div class="card-body pt-0 pb-2">
+                    <p class="card-text" style="font-size: 16px">{{ $prj->NIK }}</p>
                   </div>
+                </div>
 
-                  
-                  {{-- <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
-                    @error('email')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                    @enderror
-                  </div> --}}
-                  <div class="modal-footer" style="margin: 0 -30px">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success" name="edit-btn">Save</button>
+                <div class="card">
+                  <h5 class="card-header">Alamat</h5>
+                  <div class="card-body pt-0 pb-2">
+                    <p class="card-text" style="font-size: 16px">{{ $prj->alamat }}</p>
                   </div>
-                </form>
+                </div>
+
+                <div class="card">
+                  <h5 class="card-header">Nomor Telepon</h5>
+                  <div class="card-body pt-0 pb-2">
+                    <p class="card-text" style="font-size: 16px">{{ $prj->no_tlp }}</p>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <h5 class="card-header">Jenis Kelamin</h5>
+                  <div class="card-body pt-0 pb-2">
+                    <p class="card-text" style="font-size: 16px">{{ ($prj->jenis_kelamin == 1) ? 'Pria' : 'Wanita' }}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -429,5 +401,6 @@
   </body>
   
   </html>
+
 
 

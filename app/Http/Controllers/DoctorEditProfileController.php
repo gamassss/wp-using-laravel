@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Poli;
-use App\Models\Outpatient;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardPrjController extends Controller
+class DoctorEditProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,22 +17,7 @@ class DashboardPrjController extends Controller
      */
     public function index()
     {
-        $jumlah_halaman = ceil(Outpatient::count() / 10);
-        $role = explode('\\', Auth::user()->type);
-        if (Outpatient::count() == 0) {
-            $jumlah_pasien = 0;
-        } else {
-            $jumlah_pasien = Outpatient::count();
-        }
-
-        return view('dashboard.admin.index',[
-            'title' => 'Data Pasien',
-            'data' => 'Pasien Rawat Jalan',
-            'jml_hal' => $jumlah_halaman,
-            'type' => Auth::user()->type,
-            'jumlah_pasien' => $jumlah_pasien,
-            'patients' => Outpatient::latest()->filter(request(['search']))->paginate(10),
-        ]);
+        //
     }
 
     /**
@@ -59,10 +44,10 @@ class DashboardPrjController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Outpatient $outpatient)
+    public function show($id)
     {
         //
     }
@@ -70,33 +55,48 @@ class DashboardPrjController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Outpatient $outpatient)
+    public function edit(Doctor $doctor)
     {
-        //
+        return view('dashboard.doctor.user-edit', [
+            'title' => 'Edit Data User',
+            'doctor' => $doctor,
+            // 'patient' => $user,
+            'type' => Auth::user()->type,
+            // 'polis' => Poli::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Outpatient $outpatient)
+    public function update(Request $request, Doctor $doctor)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'username' => 'max:16',
+            'email' => 'required'
+        ]);
+
+        Doctor::where('id', $doctor->id)
+                ->update($validatedData);
+
+        return redirect('/doctor/dashboard')->with('success', 'Your profile has been updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Outpatient  $outpatient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Outpatient $outpatient)
+    public function destroy($id)
     {
         //
     }

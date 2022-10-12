@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('jenis_kelamin');
             $table->string('no_tlp');
             $table->string('type')->nullable();
+            $table->foreignId('poli_id')->nullable();
             $table->timestamps();
         });
     }

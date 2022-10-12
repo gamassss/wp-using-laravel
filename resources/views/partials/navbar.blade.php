@@ -25,11 +25,11 @@
                             @php
                                 $href = '/dashboard';
                             @endphp
-                        @elseif (Auth::user()->type == 'admin')
+                        @elseif (Auth::user()->type == 'doctor')
                             @php
-                                $href = 'doctor/dashboard';
+                                $href = 'doctor/prj';
                             @endphp
-                        @elseif (Auth::user()->type == 'admin')
+                        @elseif (Auth::user()->type == 'staff')
                             @php
                                 $href = 'staff/dashboard';
                             @endphp
