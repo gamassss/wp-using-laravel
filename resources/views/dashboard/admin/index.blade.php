@@ -165,7 +165,7 @@
                 </a>
                   <ul class="dropdown-menu small-menu px-2">
                   <li>
-                    <a href="/dashboard/admins/{{ Auth::user()->id }}/edit" style="font-size: 15px; padding-left: 0; margin-left:-5px" class="px-0"><i class="bi bi-person-lines-fill" style="margin-right: 5px"></i>Edit Profile</a>
+                    <a href="/dashboard/admin/{{ Auth::user()->id }}/edit" style="font-size: 15px; padding-left: 0; margin-left:-5px" class="px-0"><i class="bi bi-person-lines-fill" style="margin-right: 5px"></i>Edit Profile</a>
                     <form action="/logout" method="post">
                       @csrf
                       <button type="submit" style="font-size: 14px;">

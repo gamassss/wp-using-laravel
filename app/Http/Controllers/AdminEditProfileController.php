@@ -76,11 +76,11 @@ class AdminEditProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admins)
+    public function edit(Admin $admin)
     {
         return view('dashboard.admin.user-edit', [
             'title' => 'Edit Data User',
-            // 'user' => $admins,
+            'admin' => $admin,
             // 'patient' => $user,
             'type' => Auth::user()->type,
             // 'polis' => Poli::all()
@@ -94,16 +94,15 @@ class AdminEditProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admins)
+    public function update(Request $request, Admin $admin)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'username' => 'max:16',
-            'email' => 'required',
-            'type' => 'required',
+            'email' => 'required'
         ]);
 
-        Admin::where('id', Auth::user()->id)
+        Admin::where('id', $admin->id)
                 ->update($validatedData);
 
         return redirect('/dashboard/pasien')->with('success', 'Your profile has been updated.');

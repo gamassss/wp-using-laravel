@@ -187,12 +187,12 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form action="/dashboard/admins/{{ Auth::user()->id }}" method="post">
+                <form action="/dashboard/admin/{{ $admin->id }}" method="post">
                   @method('put')
                   @csrf
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', Auth::user()->name) }}" required autofocus>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $admin->name) }}" required autofocus>
                     @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -201,30 +201,17 @@
                   </div>
                   <div class="form-group">
                     <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', Auth::user()->username) }}" required>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $admin->username) }}" required>
                     @error('username')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-                  
-                    <div class="my-3">
-                      <label for="user_type">Tipe</label><br>
-                      <select id="user_type" class="form-select" aria-label="Default select example" name="type">
-                          <option value="admin" {{ (Auth::user()->type === 'admin') ? 'selected' : '' }}>Admin</option>
-                          <option value="doctor" {{ (Auth::user()->type === 'doctor') ? 'selected' : '' }}>Dokter</option>
-                          <option value="staff" {{ (Auth::user()->type === 'staff') ? 'selected' : '' }}>Staff</option>
-                      </select>
-                      @error('type')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                      @enderror
-                    </div>
+
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', Auth::user()->email) }}" required></input>
+                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $admin->email) }}" required></input>
                     @error('email')
                       <div class="invalid-feedback">
                         {{ $message }}
