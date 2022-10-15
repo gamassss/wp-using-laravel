@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Poli;
 use App\Models\Outpatient;
 use Illuminate\Http\Request;
+use App\Exports\PrjDoctorExport;
 use App\Exports\OutpatientExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,5 +32,10 @@ class PrjController extends Controller
     public function pasienExport()
     {
         return Excel::download(new OutpatientExport, 'pasien-rawat-jalan.xls');
+    }
+
+    public function pasienPrjExport()
+    {
+        return Excel::download(new PrjDoctorExport, 'pasien-rawat-jalan.xls');
     }
 }

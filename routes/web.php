@@ -25,20 +25,7 @@ use App\Http\Controllers\Doctor\DashboardRecipeController;
 use App\Http\Controllers\Doctor\DashboardDoctorPrjController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', [LandingController::class, 'index']);
-
-Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/content', function() {
   return view('content');
@@ -95,7 +82,7 @@ Route::group(['middleware' => ['auth']], function() {
     // Route::get('/resep', [DoctorController::class, 'resep']);
     Route::resource('/resep', DashboardRecipeController::class);
     //belum dispesifikasikan berdasarkan poli
-    Route::get('/exportprj', [PrjController::class, 'pasienExport']);
+    Route::get('/exportprj', [PrjController::class, 'pasienPrjExport']);
   });
 
   //Route untuk dokter
