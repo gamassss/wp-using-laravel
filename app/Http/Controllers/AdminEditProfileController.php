@@ -78,9 +78,10 @@ class AdminEditProfileController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('dashboard.admin.user-edit', [
+        return view('dashboard.admin.admin-edit', [
             'title' => 'Edit Data User',
             'admin' => $admin,
+            'data' => 'Edit Profile',
             // 'patient' => $user,
             'type' => Auth::user()->type,
             // 'polis' => Poli::all()

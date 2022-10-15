@@ -1,29 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>{{ $title }}</title>
-      <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ asset('import/css/bootstrap.min.css') }}">
-      <!----css3---->
-        <link rel="stylesheet" href="{{ asset('import/css/custom.css') }}">
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+@extends('dashboard.layouts.main')
 
-    <!--google fonts -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  
-    <!--google material icon-->
-      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
-
-  </head>
-  <body>
+@section('content')
 
 <div class="wrapper">
     
@@ -31,26 +8,7 @@
   
   <!-------sidebar--design------------>
   
-  <div id="sidebar">
-      <div class="sidebar-header">
-      <h3><img src="{{ asset('img/rs-logo.svg') }}" style="height: 40px;"class="img-fluid"/><span>RS Dr. Ayano</span></h3>
-    </div>
-    <ul class="list-unstyled component m-0">
-      
-      <li class="{{ (Request::is('doctor/dashboard')) ? 'active' : '' }}">
-        <a href="/doctor/prj" class=""><i class="material-icons">personal_injury</i>Pasien </a>
-      </li>
-
-      <li class="{{ (Request::is('doctor/appointment')) ? 'active' : '' }}">
-        <a href="/doctor/appointment" class=""><i class="material-icons">calendar_month</i>Appointment </a>
-      </li>
-
-      <li class="{{ (Request::is('doctor/resep')) ? 'active' : '' }}">
-        <a href="/doctor/resep" class=""><i class="material-icons">receipt_long</i>Resep </a>
-      </li>
-    
-    </ul>
-  </div>
+  @include('dashboard.partials.sidebar')
   
   <!-------sidebar--design- close----------->
   
@@ -62,72 +20,7 @@
       
       <!------top-navbar-start-----------> 
         
-      <div class="top-navbar">
-        <div class="xd-topbar">
-          <div class="row">
-            <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
-              <div class="xp-menubar">
-                <span class="material-icons text-white">signal_cellular_alt</span>
-            </div>  
-          </div>
-          
-          <div class="col-md-5 col-lg-3 order-3 order-md-2">
-              <div class="xp-searchbar">
-                <form>
-                  <div class="input-group">
-                  <input type="search" class="form-control"
-                  placeholder="Search" name="search" value="{{ request('search') }}">
-                  <div class="input-group-append">
-                    <button class="btn" type="submit" id="button-addon2">Go
-                  </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          
-          
-          <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-              <div class="xp-profilebar text-right">
-                <nav class="navbar p-0">
-                <ul class="nav navbar-nav flex-row ml-auto">
-                <p>Welcome back {{ (Auth::user()->name) }}</p>
-                <li class="dropdown nav-item">
-                  <a class="nav-link" href="#" data-toggle="dropdown">
-                  <img src="{{ asset('import/img/user.jpg') }}" style="width:40px; border-radius:50%;"/>
-                  <span class="xp-user-live"></span>
-                </a>
-                  <ul class="dropdown-menu small-menu px-2">
-                  <li>
-                    <form action="/logout" method="post">
-                      @csrf
-                      <button type="submit" style="font-size: 14px;">
-                        <i class="bi bi-box-arrow-right" style="margin-right: 3px;"></i> Logout
-                      </button>
-                    </form>
-                  </li>
-                  </ul>
-                </li>
-                
-                
-                </ul>
-              </nav>
-            </div>
-          </div>
-          
-        </div>
-        
-        <div class="xp-breadcrumbbar text-center">
-            <h4 class="page-title">Dashboard</h4>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">{{ $type }}</a></li>
-            <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
-          </ol>
-        </div>
-        
-        
-      </div>
-      </div>
+      @include('dashboard.partials.topnavbar')
       <!------top-navbar-end-----------> 
       
       
@@ -348,59 +241,4 @@
 
 <!-------complete html----------->
 
-
-
-
-
-  
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="{{ asset('import/js/jquery-3.3.1.slim.min.js') }}"></script>
-  <script src="{{ asset('import/js/popper.min.js') }}"></script>
-  <script src="{{ asset('import/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('import/js/jquery-3.3.1.min.js') }}"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  <script>
-    $(".editPatient").click(function() {
-      let value = $(this).data("custom-value");
-      console.log(value)
-      // do other stuff.
-    });
-  </script>
-
-  <script type="text/javascript">
-    $('#selectAll').click(function(event) {   
-    if(this.checked) {
-        // Iterate each checkbox
-        $(':checkbox').each(function() {
-            this.checked = true;                        
-        });
-    } else {
-        $(':checkbox').each(function() {
-            this.checked = false;                       
-        });
-    }
-}); 
-  </script>
-
-  <script type="text/javascript">
-      $(document).ready(function(){
-        $(".xp-menubar").on('click',function(){
-        $("#sidebar").toggleClass('active');
-      $("#content").toggleClass('active');
-      });
-      
-      $('.xp-menubar,.body-overlay').on('click',function(){
-        $("#sidebar,.body-overlay").toggleClass('show-nav');
-      });
-      
-    });
-  </script>
-
-  </body>
-  
-  </html>
-
-
-
+@endsection

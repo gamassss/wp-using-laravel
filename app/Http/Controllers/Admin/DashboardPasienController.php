@@ -86,11 +86,11 @@ class DashboardPasienController extends Controller
      */
     public function edit(Patient $pasien)
     {   
-        return view('dashboard.patients.edit', [
+        return view('dashboard.admin.pasien-edit', [
             'title' => 'Edit Data Pasien',
+            'data' => 'Edit Data Pasien',
             'patient' => $pasien,
             'type' => Auth::user()->type,
-            'polis' => Poli::all()
         ]);
     }
 

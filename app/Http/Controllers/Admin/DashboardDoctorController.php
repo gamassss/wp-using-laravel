@@ -88,9 +88,10 @@ class DashboardDoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        return view('dashboard.doctor.edit', [
+        return view('dashboard.admin.user-edit', [
             'title' => 'Edit Data Dokter',
-            'doctor' => $doctor,
+            'data' => 'Edit Data Dokter',
+            'user' => $doctor,
             'type' => Auth::user()->type,
         ]);
     }
@@ -105,12 +106,11 @@ class DashboardDoctorController extends Controller
     public function update(Request $request, Doctor $doctor)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'username' => 'required',
+            'name' => 'required|max:255',
+            'username' => 'max:16',
             'email' => 'required',
+            'poli_id' => 'required'
         ]);
-
-        // dd($validatedData);
 
         Doctor::where('id', $doctor->id)
                 ->update($validatedData);

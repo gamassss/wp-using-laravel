@@ -11,13 +11,13 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" style="position: relative;" aria-current="page"
-                            href="#home">Home</a>
+                            href="{{ Request::is('/') ? '#home' : '/' }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#doctor">Make an Appointment</a>
+                        <a class="nav-link active" aria-current="page" href="{{ Request::is('/') ? '/find-doctor' : '/#doctor' }}">Make an Appointment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#contact">Contact Us</a>
+                        <a class="nav-link active" href="{{ Request::is('/') ? '#contact' : '/#contact' }}">Contact Us</a>
                     </li>
                     @if (Auth::check())
                         

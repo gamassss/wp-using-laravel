@@ -46,7 +46,7 @@
                   <div class="table-title">
                     <div class="row">
                       <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Edit Data Dokter</h2>
+                        <h2 class="ml-lg-2">Edit Profile</h2>
                     </div>
                     </div>
                   </div>
@@ -56,22 +56,21 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form action="/doctor/doctor/{{ $doctor->id }}" method="post">
+                <form action="/dashboard/admin/{{ $admin->id }}" method="post">
                   @method('put')
                   @csrf
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $doctor->name) }}" required autofocus>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $admin->name) }}" required autofocus>
                     @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-
                   <div class="form-group">
                     <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $doctor->username) }}" required>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $admin->username) }}" required>
                     @error('username')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -79,38 +78,33 @@
                     @enderror
                   </div>
 
-                  <input type="hidden" name="type" value="{{ old($doctor->type) }}">
-                  <input type="hidden" name="password" value="{{ old($doctor->password) }}">
-                  
-                  <div class="my-3">
-                    <label for="poli_id">Poli</label><br>
-                    <select id="poli_id" class="form-select" aria-label="Default select example" name="poli_id">
-                        <option value="1" {{ ($doctor->poli_id == 1) ? 'selected' : '' }}>Kandungan</option>
-                        <option value="2" {{ ($doctor->poli_id == 2) ? 'selected' : '' }}>Mata</option>
-                        <option value="3" {{ ($doctor->poli_id == 3) ? 'selected' : '' }}>Bedah Umum</option>
-                        <option value="4" {{ ($doctor->poli_id == 4) ? 'selected' : '' }}>Saraf</option>
-                        <option value="5" {{ ($doctor->poli_id == 5) ? 'selected' : '' }}>THT</option>
-                        <option value="6" {{ ($doctor->poli_id == 6) ? 'selected' : '' }}>Paru</option>
-                        <option value="7" {{ ($doctor->poli_id == 7) ? 'selected' : '' }}>Penyakit Dalam</option>
-                        <option value="8" {{ ($doctor->poli_id == 8) ? 'selected' : '' }}>Jantung</option>
-                    </select>
-                    @error('type')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $doctor->email) }}" required></input>
+                    <input id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $admin->email) }}" required></input>
                     @error('email')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-
+                    {{-- <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp', $patient->no_tlp) }}" required>
+                      @error('no_tlp')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div> --}}
+                  {{-- <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                    @error('email')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
+                  </div> --}}
                   <div class="modal-footer" style="margin: 0 -30px">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success" name="edit-btn">Save</button>
@@ -246,7 +240,7 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 
             <!----edit-modal end--------->   
             

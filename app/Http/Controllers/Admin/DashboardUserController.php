@@ -89,8 +89,9 @@ class DashboardUserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.users.edit', [
+        return view('dashboard.admin.user-edit', [
             'title' => 'Edit Data User',
+            'data' => 'Edit Data User',
             'user' => $user,
             'type' => Auth::user()->type,
             // 'polis' => Poli::all()

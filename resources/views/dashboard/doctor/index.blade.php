@@ -1,29 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>{{ $title }}</title>
-      <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ asset('import/css/bootstrap.min.css') }}">
-      <!----css3---->
-        <link rel="stylesheet" href="{{ asset('import/css/custom.css') }}">
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+@extends('dashboard.layouts.main')
 
-    <!--google fonts -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  
-    <!--google material icon-->
-      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
-
-  </head>
-  <body>
+@section('content')
   
 
 
@@ -33,26 +10,7 @@
   
   <!-------sidebar--design------------>
   
-  <div id="sidebar">
-      <div class="sidebar-header">
-      <h3><img src="{{ asset('img/rs-logo.svg') }}" style="height: 40px;"class="img-fluid"/><span>RS Dr. Ayano</span></h3>
-    </div>
-    <ul class="list-unstyled component m-0">
-      
-      <li class="{{ (Request::is('doctor/dashboard')) ? 'active' : '' }}">
-        <a href="/doctor/dashboard" class=""><i class="material-icons">personal_injury</i>Pasien </a>
-      </li>
-
-      <li class="{{ (Request::is('doctor/appointment')) ? 'active' : '' }}">
-        <a href="/doctor/appointment" class=""><i class="material-icons">calendar_month</i>Appointment </a>
-      </li>
-
-      <li class="{{ (Request::is('doctor/resep')) ? 'active' : '' }}">
-        <a href="/doctor/resep" class=""><i class="material-icons">receipt_long</i>Resep </a>
-      </li>
-    
-    </ul>
-  </div>
+  @include('dashboard.partials.sidebar')
   
   <!-------sidebar--design- close----------->
   
@@ -173,6 +131,7 @@
 
               {{-- @dd(Auth::user()->poli_id) --}}
               {{-- @dd($poli->get()->all()) --}}
+              @if (Request::is('doctor/prj'))
               @php 
                 if ($poli->get()->all() != null) {
                   $poli = $poli->get()->all();
@@ -181,6 +140,7 @@
                   $nama_poli = "";
                 }
               @endphp
+              @endif
               {{-- @dd($poli[0]->name) --}}
 
             <div class="table-wrapper">
@@ -188,7 +148,11 @@
               <div class="table-title">
                 <div class="row">
                   <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                    <h2 class="ml-lg-2">{{ $data . $nama_poli }}</h2>
+                    @if (Request::is('doctor/prj'))
+                      <h2 class="ml-lg-2">{{ $data . $nama_poli }}</h2>
+                    @else
+                      <h2 class="ml-lg-2">{{ $data }}</h2>  
+                    @endif
                 </div>
                 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
                   {{-- <a class="btn btn-success" data-toggle="modal" data-target="#addPatientModal">
@@ -317,19 +281,19 @@
                 <label for="checkbox1"></label></th>
                 <th>{{ $appointment->tanggal }}</th>
                 <th>{{ $appointment->jam }}</th>
-                <th>
-                  <a href="/doctor/appointment/{{ $appointment->id }}/edit" style="color: #FFBC49" class="edit" >
-                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                <th class="text-center">
+                  <a href="/doctor/appointment/{{ $appointment->id }}" style="color: #FFBC49" class="edit" >
+                    <i class="bi bi-eye"></i>
                   </a>
-                  <form action="/doctor/appointment/{{ $appointment->id }}" method="post" class="d-inline">
+
+                  {{-- <form action="/doctor/appointment/{{ $appointment->id }}" method="post" class="d-inline">
                     @method('delete')
                     @csrf
-                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
                     <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus? ')">
                       <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                     </button>
-                    {{-- </a> --}}
-                  </form>
+                  </form> --}}
+
                 </th>
                 </tr>
               @endforeach
@@ -711,61 +675,4 @@
 <!-------complete html----------->
 
 
-
-
-
-  
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="{{ asset('import/js/jquery-3.3.1.slim.min.js') }}"></script>
-  <script src="{{ asset('import/js/popper.min.js') }}"></script>
-  <script src="{{ asset('import/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('import/js/jquery-3.3.1.min.js') }}"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  <script>
-    $(".editPatient").click(function() {
-      let value = $(this).data("custom-value");
-      console.log(value)
-      // do other stuff.
-    });
-  </script>
-
-  <script type="text/javascript">
-    $('#selectAll').click(function(event) {   
-    if(this.checked) {
-        // Iterate each checkbox
-        $(':checkbox').each(function() {
-            this.checked = true;                        
-        });
-    } else {
-        $(':checkbox').each(function() {
-            this.checked = false;                       
-        });
-    }
-}); 
-  </script>
-
-  <script type="text/javascript">
-      $(document).ready(function(){
-        $(".xp-menubar").on('click',function(){
-        $("#sidebar").toggleClass('active');
-      $("#content").toggleClass('active');
-      });
-      
-      $('.xp-menubar,.body-overlay').on('click',function(){
-        $("#sidebar,.body-overlay").toggleClass('show-nav');
-      });
-      
-    });
-  </script>
-  
-  
-  
-
-
-  </body>
-  
-  </html>
-
-
+@endsection
