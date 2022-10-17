@@ -53,4 +53,9 @@ class Patient extends Model
     {
         return $this->hasMany(PoliDetail::class);
     }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, PatientDetail::class);
+    }
 }

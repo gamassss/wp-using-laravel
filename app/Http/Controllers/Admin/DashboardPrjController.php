@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Poli;
+use App\Models\User;
 use App\Models\Outpatient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,7 @@ class DashboardPrjController extends Controller
             'jml_hal' => $jumlah_halaman,
             'type' => Auth::user()->type,
             'jumlah_pasien' => $jumlah_pasien,
-            'patients' => Outpatient::latest()->filter(request(['search']))->paginate(10),
+            'patients' => Outpatient::with('users')->latest()->filter(request(['search']))->paginate(10)
         ]);
     }
 

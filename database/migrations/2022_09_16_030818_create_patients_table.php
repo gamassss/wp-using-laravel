@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('no_tlp');
             $table->string('type')->nullable();
             $table->foreignId('poli_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });
     }

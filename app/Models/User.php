@@ -37,7 +37,7 @@ class User extends Authenticatable
         'type' => 'admin'
     ];
 
-    // protected $with = ['poli_id'];
+// protected $with = ['poli_id'];
 
 
 

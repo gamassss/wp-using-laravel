@@ -22,7 +22,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('poli_id')->nullable();
-            $table->string('speciality')->nullable();
+            $table->foreignId('patient_id')->nullable();
+            $table->foreignId('patient_detail_id')->nullable();
+            // $table->string('speciality')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
