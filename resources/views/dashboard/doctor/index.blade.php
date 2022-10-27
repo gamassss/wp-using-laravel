@@ -194,9 +194,7 @@
                 <th>{{ $outpatient->alamat }}</th>
                 <th>{{ $outpatient->no_tlp }}</th>
                 <th class="text-center">
-                  <a href="/doctor/prj/{{ $outpatient->id }}" style="color: #FFBC49" class="edit" >
-                    <i class="bi bi-eye"></i>
-                  </a>
+                  <button style="border: none; background-color:transparent;" id="show-patient" data-url={{ route('prj.show', $outpatient->id) }} data-toggle="modal" data-target="#showPatientModal"><i style="color: #FFBC49" class="bi bi-eye"></i></button>
                 </th>
                 </tr>
               @endforeach
@@ -273,13 +271,13 @@
               </thead>
               
               <tbody>
-              
+              {{-- @dd($appointments) --}}
               @foreach ($appointments as $appointment)
               <tr>
                 <th><span class="custom-checkbox">
                 <input type="checkbox" id="checkbox1" name="option[]" value="{{ $appointment->id }}">
                 <label for="checkbox1"></label></th>
-                <th>{{ $appointment->tanggal }}</th>
+                <th>{{ \Carbon\Carbon::parse($appointment->tanggal)->format('d/m/Y')}}</th>
                 <th>{{ $appointment->jam }}</th>
                 <th class="text-center">
                   <a href="/doctor/appointment/{{ $appointment->id }}" style="color: #FFBC49" class="edit" >
@@ -546,90 +544,47 @@
             
             
           <!----edit-modal start--------->
-    {{-- <div class="modal fade" tabindex="-1" id="editPatientModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Patients</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/dashboard/pasien/{{ $patient }}" method="post">
-          @method('put')
-          @csrf
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
-            @error('name')
-              <div class="invalid-feedback">
-                {{ $message }}
+<div class="modal fade" tabindex="-1" id="showPatientModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Patient Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="pasien-nama" type="text" class="form-control" name="name" value="" readonly>
               </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="nik">NIK</label>
-            <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="NIK" value="{{ old('NIK') }}" required>
-            @error('NIK')
-              <div class="invalid-feedback">
-                {{ $message }}
+              <div class="form-group">
+                <label for="nik">NIK</label>
+                <input id="pasien-nik" type="text" class="form-control" name="NIK" value="" readonly>
               </div>
-            @enderror
-          </div>
-          <div class="my-3">
-            <label for="pasien">Pasien</label><br>
-            <select id="pasien" class="form-select" aria-label="Default select example" name="type">
-                <option value="App\Models\Inpatient" selected>Pasien Rawat Inap</option>
-                <option value="App\Models\Outpatient">Pasien Rawat Jalan</option>
-            </select>
-            @error('type')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="alamat">Address</label>
-            <textarea id="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required></textarea>
-            @error('alamat')
-              <div class="invalid-feedback">
-                {{ $message }}
+              <div class="my-3">
+                <label for="pasien">Pasien</label><br>
+                <input id="pasien-type" type="text" class="form-control" name="type" value="" readonly>
               </div>
-            @enderror
-          </div>
-          <label>Jenis Kelamin</label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value=1>
-            <label class="form-check-label" for="pria">Pria</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value=0>
-            <label class="form-check-label" for="wanita">Wanita</label>
-          </div>
-          @error('jenis_kelamin')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input id="phone" type="text" class="form-control @error('no_tlp') is-invalid @enderror" name="no_tlp" value="{{ old('no_tlp') }}" required>
-              @error('no_tlp')
-                <div class="invalid-feedback">
-                  {{ $message }}
+              <div class="form-group">
+                <label for="alamat">Address</label>
+                <textarea id="pasien-alamat" class="form-control" name="alamat" value="" readonly>
+                </textarea>
+              </div>
+              <label>Jenis Kelamin</label><br>
+              <input id="pasien-jk" type="text" class="form-control" name="NIK" value="" readonly>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input id="pasien-phone" type="text" class="form-control" name="no_tlp" value="" readonly>
+              </div>
+                <div class="modal-footer" style="margin: 0 -30px">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
-              @enderror
-            </div>
-            <div class="modal-footer" style="margin: 0 -30px">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save</button>
-            </div>
-        </form>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div> --}}
 
             <!----edit-modal end--------->	   
             

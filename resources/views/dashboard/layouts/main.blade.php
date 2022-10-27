@@ -32,7 +32,6 @@
     <script src="{{ asset('import/js/popper.min.js') }}"></script>
     <script src="{{ asset('import/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('import/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script>
       $(".editPatient").click(function() {
@@ -79,12 +78,43 @@
           axios.get(url).then((response) => {
             $.each( response.data , function (index, value) {
               // element == this
-            $('#doctor').append('<option value="'+value.id'" >'+value.name+'</option>');
+            $('#doctor').append('<option value="'+value.id+'" >'+value.name+'</option>');
             });
           })
         });
       });
     </script>
+
+<script>
+  $(document).ready(function () {
+  $('body').on('click', '#show-patient', function () {
+    let show_url = $(this).data('url');
+    console.log(show_url)
+    $.get(show_url, function (data) {
+      console.log(data)
+      // $('#showModal').modal('show');
+      if (data.type == 'outpatient') {
+        $type = 'Pasien Rawat Jalan'
+      } else if (data.type == 'inpatient') {
+        $type = 'Pasien Rawat Inap'
+      }
+
+      if (data.jenis_kelamin == 1) {
+        $jk = 'Pria'
+      } else if (data.jenis_kelamin == 2) {
+        $jk = 'Wanita'
+      }
+      
+        $('#pasien-nama').val(data.name);
+        $('#pasien-nik').val(data.NIK);
+        $('#pasien-type').val($type);
+        $('#pasien-alamat').val(data.alamat);
+        $('#pasien-jk').val($jk);
+        $('#pasien-phone').val(data.no_tlp);
+    });
+    });
+  });
+</script>
 
 </body>
     

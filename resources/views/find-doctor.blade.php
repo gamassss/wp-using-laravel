@@ -33,7 +33,7 @@
           </div>
 
           <div class="col-md-5 my-3">
-            <input type="datetime-local" class="form-control" placeholder="Select date">
+            <input type="datetime-local" name="tanggal" class="form-control" placeholder="Select date">
           </div>
   
           <div class="col-md-5 mb-3">

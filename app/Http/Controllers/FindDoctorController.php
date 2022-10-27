@@ -21,8 +21,10 @@ class FindDoctorController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->request);
         $validateData = $request->validate([
             'doctor_id' => 'required',
+            'speciality_id' => 'required',
             'tanggal' => 'required',
             'jam' => 'required'
         ]);

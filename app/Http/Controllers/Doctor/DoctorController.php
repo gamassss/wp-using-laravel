@@ -50,7 +50,7 @@ class DoctorController extends Controller
             'title' => 'Dashboard',
             'data' => 'Jadwal Appointment',
             'jml_hal' => $jumlah_halaman,
-            'appointments' => Appointment::where('doctor_id', Auth::user()->id)->get(),
+            'appointments' => $appointment,
             'type' => Auth::user()->type,
             'jumlah_appointment' => $jumlah_appointment
         ]);

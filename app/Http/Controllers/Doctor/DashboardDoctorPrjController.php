@@ -65,11 +65,7 @@ class DashboardDoctorPrjController extends Controller
      */
     public function show(Outpatient $prj)
     {
-        return view('dashboard.doctor.patient-show', [
-            'title' => 'Data Pasien',
-            'type' => Auth::user()->type,
-            'prj' => $prj
-        ]);
+        return response()->json($prj);
     }
 
     /**
