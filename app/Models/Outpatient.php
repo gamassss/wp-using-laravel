@@ -18,9 +18,4 @@ class Outpatient extends Patient
         return $this->hasMany(PoliDetail::class);
     }
 
-    public function users()
-    {
-        return $this->hasManyThrough(User::class, PatientDetail::class);
-    }
-
 }

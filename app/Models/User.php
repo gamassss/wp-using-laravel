@@ -79,8 +79,8 @@ class User extends Authenticatable
         });
     }
 
-    public function patient_details()
-    {
-        return $this->hasMany(PatientDetail::class);
-    }
+    // public function patient_details()
+    // {
+    //     return $this->hasMany(PatientDetail::class);
+    // }
 }

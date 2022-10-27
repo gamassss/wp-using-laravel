@@ -242,7 +242,7 @@
                 <th>{{ $patient->NIK }}</th>
                 <th>{{ $patient->alamat }}</th>
                 <th>{{ $patient->no_tlp }}</th>
-                <th>{{ $patient->users->first()->name }}</th>
+              <th>{{ $patient->users->first()->name }}</th>
                 <th>
                   <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>

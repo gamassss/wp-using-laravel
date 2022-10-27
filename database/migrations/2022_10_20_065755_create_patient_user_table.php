@@ -13,8 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patient_details', function (Blueprint $table) {
-            $table->id();
+        Schema::create('patient_user', function (Blueprint $table) {
             $table->foreignId('user_id');
             $table->foreignId('patient_id');
             $table->timestamps();
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_details');
+        Schema::dropIfExists('patient_user');
     }
 };

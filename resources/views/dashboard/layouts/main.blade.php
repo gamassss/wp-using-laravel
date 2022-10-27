@@ -17,10 +17,9 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  
+          
     <!--google material icon-->
-      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
 
   </head>
   <body>
@@ -34,7 +33,7 @@
     <script src="{{ asset('import/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('import/js/jquery-3.3.1.min.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
+    
     <script>
       $(".editPatient").click(function() {
         let value = $(this).data("custom-value");
@@ -69,6 +68,21 @@
           $("#sidebar,.body-overlay").toggleClass('show-nav');
         });
         
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('#speciality').change(function (e) { 
+          let url = 'get-doctor'+$(this).val()
+          $('#doctor').append('<option value="" >Pilih Dokter</option>');
+          axios.get(url).then((response) => {
+            $.each( response.data , function (index, value) {
+              // element == this
+            $('#doctor').append('<option value="'+value.id'" >'+value.name+'</option>');
+            });
+          })
+        });
       });
     </script>
 

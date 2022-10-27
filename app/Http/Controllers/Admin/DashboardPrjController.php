@@ -17,14 +17,10 @@ class DashboardPrjController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $jumlah_halaman = ceil(Outpatient::count() / 10);
+    {   
+        $jumlah_pasien = Outpatient::count();
+        $jumlah_halaman = ceil($jumlah_pasien / 10);
         $role = explode('\\', Auth::user()->type);
-        if (Outpatient::count() == 0) {
-            $jumlah_pasien = 0;
-        } else {
-            $jumlah_pasien = Outpatient::count();
-        }
 
         return view('dashboard.admin.index',[
             'title' => 'Data Pasien',

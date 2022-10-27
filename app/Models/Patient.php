@@ -12,8 +12,6 @@ class Patient extends Model
 {
     use HasFactory, HasChildren;
 
-    // protected $fillable = ['name', 'type'];
-
     protected $guarded = ['id'];
 
     protected $childTypes = [
@@ -21,16 +19,8 @@ class Patient extends Model
         'outpatient' => Outpatient::class
     ];
 
-
     public function scopeFilter($query, array $filters)
     {
-        // if (isset($filters['search']) ? $filters['search'] : false) {
-        //     $query->where('name', 'like', '%' . $filters['search'] . '%')
-        //             ->orWhere('NIK', 'like', '%' . $filters['search'] . '%')
-        //             ->orWhere('alamat', 'like', '%' . $filters['search'] . '%')
-        //             ->orWhere('no_tlp', 'like', '%' . $filters['search'] . '%');
-        // }
-
         $query->when($filters['search'] ?? false, function($query, $search) {
             return $query->where('name', 'like', '%' . $search . '%')
                         ->orWhere('NIK', 'like', '%' . $search . '%')
@@ -44,10 +34,10 @@ class Patient extends Model
         return $this->hasMany(Payment::class);
     }
 
-    public function patient_details()
-    {
-        return $this->hasMany(PatientDetail::class);
-    }
+    // public function patient_details()
+    // {
+    //     return $this->hasMany(PatientDetail::class);
+    // }
 
     public function poli_details()
     {
@@ -56,6 +46,11 @@ class Patient extends Model
 
     public function users()
     {
-        return $this->hasManyThrough(User::class, PatientDetail::class);
+        return $this->belongsToMany(User::class, PatientUser::class);
     }
+
+    // public function users()
+    // {
+    //     return $this->hasManyThrough(User::class, PatientDetail::class);
+    // }
 }

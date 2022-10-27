@@ -18,19 +18,22 @@
         <div class="col-md-12">
   
           <div class="col-md-5 mb-3">
-            <select name="doctor_id" id="doctors" class="px-4 py-2 " style="width: 100%">
-              <option value="">Choose Doctor</option>
-              @foreach ($doctors as $doctor)
-              <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+            <select name="speciality_id" id="specialities" class="px-4 py-2 " style="width: 100%">
+              <option value="">Choose Speciality</option>
+              @foreach ($specialities as $speciality)
+              <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
               @endforeach
             </select>
           </div>
-          <?php $now = Carbon\Carbon::now()
-          // $now = $now->toDateTimeString();
-          ?>
+
+          <div class="col-md-5 mb-3">
+            <select name="doctor_id" id="doctors" class="px-4 py-2 " style="width: 100%">
+              <option value="">Choose Doctor</option>
+            </select>
+          </div>
+
           <div class="col-md-5 my-3">
-            <label for="date">Choose Date</label>
-            <input style="width: 100%" id="date" class="mt-1" type="date" name="tanggal" value={{ $now }} placeholder="Choose Date" min="2022-01-01" max="2022-12-31">
+            <input type="datetime-local" class="form-control" placeholder="Select date">
           </div>
   
           <div class="col-md-5 mb-3">

@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Admin\PriController;
 use App\Http\Controllers\Admin\PrjController;
 use App\Http\Controllers\FindDoctorController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Admin\PasienController;
@@ -33,7 +34,8 @@ Route::get('/content', function() {
 
 Route::post('/find-doctor', [FindDoctorController::class, 'store']);
 
-Route::get('/find-doctor', [FindDoctorController::class, 'index']);
+Route::get('/find-doctor', [AppointmentController::class, 'index']);
+Route::get('/find-doctor/{speciality}', [AppointmentController::class, 'getDoctors'])->name('get-doctor');
 
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/register', [RegisterController::class, 'store']);

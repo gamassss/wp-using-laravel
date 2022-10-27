@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Patient;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class PatientDetail extends Model
+class PatientUser extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    protected $table = 'patient_user';
 
     public function patient()
     {

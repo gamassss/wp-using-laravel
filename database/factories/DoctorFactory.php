@@ -20,17 +20,24 @@ class DoctorFactory extends Factory
         $password = bcrypt(fake()->password);
         // $type = ['admin', 'staff', 'doctor'];
         
-
+        // \App\Models\User::create([
+        //     'name' => 'dokter2',
+        //     'username' => 'dokterdua',
+        //     'email' => 'doc2@doc.com',
+        //     'type' => 'doctor',
+        //     'password' => bcrypt('123'),
+        //     'poli_id' => 1,
+        //     'speciality_id' => 1
+        // ]);
+            $id_spec = mt_rand(1,8);
         return [
-            'name' => fake()->name(),
-            'username' => fake()->username(),
-            'email' => fake()->safeEmail(),
-            'email_verified_at' => now(),
+            'name' => fake()->name,
+            'username' => 'dokterdua',
+            'email' => 'doc2@doc.com',
             'type' => 'doctor',
-            'password' => $password, // password
-            'patient_id' => mt_rand(1,100),
-            'poli_id' => mt_rand(1,8),
-            'remember_token' => Str::random(10),
+            'password' => bcrypt('123'),
+            'poli_id' => $id_spec,
+            'speciality_id' => $id_spec
         ];
     }
 }

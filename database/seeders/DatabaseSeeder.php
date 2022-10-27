@@ -14,33 +14,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(70)->create();
+        // \App\Models\Patient::create([
+        //     'name' => fake()->name(),
+        //     'NIK' => fake()->nik(),
+        //     'alamat' => fake()->address(),
+        //     'jenis_kelamin' => mt_rand(1,2),
+        //     'type' => 'outpatient',
+        //     'no_tlp' => fake()->phoneNumber(),
+        //     'poli_id' => 1
+        // ])->first();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // \App\Models\PatientUser::create([
+        //     'user_id' => 1,
+        //     'patient_id' => 1
+        // ])->first();
 
-        // \App\Models\Patient::factory(44)->create();
-        
-        // \App\Models\Doctor::factory(16)->create();
-        
-        // \App\Models\Outpatient::factory(100)->create();
-        \App\Models\Outpatient::factory(10)->create([
-            'name' => fake()->name(),
-            'NIK' => fake()->nik(),
-            'alamat' => fake()->address(),
-            'jenis_kelamin' => mt_rand(1,2),
-            'type' => 'outpatient',
-            'no_tlp' => fake()->phoneNumber(),
-            'user_id' => 1,
-            'poli_id' => 1
-        ])->first();
-        // \App\Models\PatientDetail::factory(200)->create();
-        \App\Models\PatientDetail::factory()->create([
-            'user_id' => 1,
-            'patient_id' => mt_rand(1,10)
-        ])->first();
+        // \App\Models\Patient::create([
+        //     'name' => fake()->name(),
+        //     'NIK' => fake()->nik(),
+        //     'alamat' => fake()->address(),
+        //     'jenis_kelamin' => mt_rand(1,2),
+        //     'type' => 'outpatient',
+        //     'no_tlp' => fake()->phoneNumber(),
+        //     'poli_id' => 1
+        // ])->first();
+
+        // \App\Models\PatientUser::create([
+        //     'user_id' => 2,
+        //     'patient_id' => 2
+        // ])->first();
 
         \App\Models\Poli::create(
             [
@@ -85,6 +88,54 @@ class DatabaseSeeder extends Seeder
         );
 
         \App\Models\Poli::create(
+            [
+                'name' => 'Jantung'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Kandungan'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Mata'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Bedah Umum'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Saraf'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'THT'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Paru'
+            ],
+        );
+
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Penyakit Dalam'
+            ],
+        );
+
+        \App\Models\Speciality::create(
             [
                 'name' => 'Jantung'
             ],
