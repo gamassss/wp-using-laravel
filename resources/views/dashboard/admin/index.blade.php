@@ -1,3 +1,4 @@
+@dd($patients)
 @extends('dashboard.layouts.main')
 {{-- @dd($patients) --}}
 
@@ -132,7 +133,7 @@
               <tbody>
               
               @foreach ($patients as $patient)
-              <tr>
+              <tr id="{{ $patient->id }}">
                 <th><span class="custom-checkbox">
                 <input type="checkbox" id="checkbox1" name="option[]" value="{{ $patient->id }}">
                 <label for="checkbox1"></label></th>
@@ -144,15 +145,15 @@
                   <a href="/dashboard/pasien/{{ $patient->id }}/edit" style="color: #FFBC49" class="edit" >
                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                   </a>
-                  <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
+                  {{-- <form action="/dashboard/pasien/{{ $patient->id }}" method="post" class="d-inline">
                     @method('delete')
-                    @csrf
-                    {{-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> --}}
-                    <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus data {{ $patient->name }}? ')">
-                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </button>
-                    {{-- </a> --}}
-                  </form>
+                    @csrf --}}
+                    <button data-target="#deletePatientModal" value="{{ $patient->id }}" id="delete-patient" data-url="{{ route('pasien.destroy', $patient->id) }}" class="delete" style="border: none; background-color: transparent;" data-toggle="modal"><i class="bi bi-trash"></i>
+                      </button>
+                      {{-- <button style="background-color: transparent;" class="border-0 delete" type="submit" onclick="return confirm('Yakin ingin menghapus data {{ $patient->name }}? ')">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                      </button> --}}
+                  {{-- </form> --}}
                 </th>
                 </tr>
               @endforeach
@@ -193,13 +194,13 @@
                   <ul class="pagination">
                     @if (isset($_GET['page']))
                       @if ($pageActive > 1)
-                        <li class="page-item disabled"><a href="pasien?page={{ $pageActive - 1 }}">Previous</a></li>
+                        <li class="page-item disabled"><a href="dashboard?page={{ $pageActive - 1 }}">Previous</a></li>
                     @endif
                     @for ($i = 0; $i < $jml_hal; $i++)
-                        <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="pasien?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
+                        <li class="page-item {{ ($pageActive == ($i+1)) ? 'active' : '' }}"><a href="dashboard?page={{ $i + 1 }}"class="page-link">{{ $i + 1 }}</a></li>
                     @endfor
                     @if ($pageActive < $jml_hal)
-                      <li class="page-item "><a href="pasien?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
+                      <li class="page-item "><a href="dashboard?page={{ $pageActive + 1 }}" class="page-link">Next</a></li>  
                     @endif
 
                     @else
@@ -849,7 +850,7 @@
             
             
           <!----delete-modal start--------->
-    <div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+    <div class="modal" tabindex="-1" id="deletePatientModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -862,9 +863,10 @@
         <p>Are you sure you want to delete this Records</p>
     <p class="text-warning"><small>this action Cannot be Undone,</small></p>
       </div>
+      <input type="hidden" id="input-delete" name="id" value="">
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success">Delete</button>
+        <button type="button" id="delete-btn-patient" data-dismiss="modal" aria-label="Close" class="btn btn-success">Delete</button>
       </div>
     </div>
   </div>

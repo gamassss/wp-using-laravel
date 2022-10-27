@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ $title }}</title>
       <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('import/css/bootstrap.min.css') }}">
@@ -115,6 +116,75 @@
     });
   });
 </script>
+
+<script>
+  $('body').on('click', '#delete-patient', function () {
+    let url = $(this).attr('data-url');
+    let id = $(this).val();
+    // console.log(id)
+    // console.log(url)
+    $('#input-delete').val(id);
+    // let valuemodal = $('#input-delete').val();
+    // console.log(valuemodal)
+  });
+
+  $('body').on('click', '#delete-btn-patient', function () {
+    console.log(this)
+    let id = $('#input-delete').val()
+    console.log(id)
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      data: {
+          _method: 'DELETE'
+      },
+      url: 'dashboard/pasien/'+id,
+      dataType: "json",
+      success: function (response) {
+        console.log(response)
+        $('#'+id+'').remove();
+      }
+    });
+  });
+</script>
+
+{{-- <script>
+  $('body').on('change', '.status', function () {
+  let statusVal = $(this).val();
+  let id = $(this).attr('data-id')
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.ajax({
+    type: "PUT",
+    url: "/subevents/"+id,
+    async: false,
+    data: {status: statusVal},
+    dataType: "json",
+    success: function (response) {
+      // console.log("data berhasil dikirim")
+    }
+  })
+  .fail(function(error, textStatus, errorThrown) {
+    console.log(JSON.stringify(error));
+    alert(textStatus);
+    alert(errorThrown);
+  })
+  .always(function() {
+    console.log("selesai")
+  });
+});
+</script> --}}
 
 </body>
     
