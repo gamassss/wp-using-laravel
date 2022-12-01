@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow bg-body rounded fixed-top mb-3">
+{{-- <div class="container-fluid mb-5"> --}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow bg-body rounded mb-3 navbar-fixed-top">
         <div class="container">
             <a class="navbar-brand fs-3" href="/"><span class="text-warning">RS</span><span class="text-primary">
                     Dr. Ayano</span></a>
@@ -48,4 +48,4 @@
             </div>
         </div>
     </nav>
-</div>
+{{-- </div> --}}

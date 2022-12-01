@@ -1,4 +1,4 @@
-@dd($patients)
+
 @extends('dashboard.layouts.main')
 {{-- @dd($patients) --}}
 

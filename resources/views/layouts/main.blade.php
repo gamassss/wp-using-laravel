@@ -26,7 +26,7 @@
     <title>Rumah Sakit Dr. Ayano</title>
 </head>
 
-<body style="padding-top: 70px">
+<body>
 
   @include('partials.navbar')
 

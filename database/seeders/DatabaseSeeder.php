@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(70)->create();
-        \App\Models\Patient::factory(120)->create();
+        // \App\Models\Patient::factory(120)->create();
         // \App\Models\Patient::create([
         //     'name' => fake()->name(),
         //     'NIK' => fake()->nik(),
@@ -46,100 +46,100 @@ class DatabaseSeeder extends Seeder
         //     'patient_id' => 2
         // ])->first();
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Kandungan'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Kandungan'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Mata'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Mata'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Bedah Umum'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Bedah Umum'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Saraf'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Saraf'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'THT'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'THT'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Paru'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Paru'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Penyakit Dalam'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Penyakit Dalam'
+            ],
+        );
 
-        // \App\Models\Poli::create(
-        //     [
-        //         'name' => 'Jantung'
-        //     ],
-        // );
+        \App\Models\Poli::create(
+            [
+                'name' => 'Jantung'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Kandungan'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Kandungan'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Mata'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Mata'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Bedah Umum'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Bedah Umum'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Saraf'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Saraf'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'THT'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'THT'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Paru'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Paru'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Penyakit Dalam'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Penyakit Dalam'
+            ],
+        );
 
-        // \App\Models\Speciality::create(
-        //     [
-        //         'name' => 'Jantung'
-        //     ],
-        // );
+        \App\Models\Speciality::create(
+            [
+                'name' => 'Jantung'
+            ],
+        );
     }
 }
