@@ -74,9 +74,14 @@
 <!-- ====== hero ====== -->
 
 <section id="hero" class="relative bg-white py-16 lg:pt-[100px]">
-        <a href="https://github.com/gamassss/wp-using-laravel" target="_blank">
+        {{-- <a href="https://github.com/gamassss/wp-using-laravel" target="_blank">
             <img width="90px" id="git-logo" src="{{ asset('img/gith.png') }}" alt="" class="-translate-x-24 float-right -translate-y-20">
-        </a>
+        </a> --}}
+        <div id="git-logo" class="flex justify-end -mt-14 lg:-translate-x-20">
+            <a href="https://github.com/gamassss/wp-using-laravel" target="_blank">
+                <img width="90px" src="{{ asset('img/gith.png') }}" alt="" class="">
+            </a>
+        </div>
     <div class="mx-auto max-w-7xl px-8 md:px-6 mb-28">
         <div class="flex flex-wrap">
             <div class="w-full lg:w-5/12">
