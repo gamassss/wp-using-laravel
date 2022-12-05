@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- flowbite -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
+    <!-- aos css -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     @vite('resources/css/app.css')
     <!-- style css -->
     <style type="text/tailwindcss">
@@ -70,8 +73,11 @@
 
 <!-- ====== hero ====== -->
 
-<section class="relative bg-white py-16 lg:pt-[100px]">
-    <div class="mx-auto max-w-7xl px-8 md:px-6 mb-24">
+<section id="hero" class="relative bg-white py-16 lg:pt-[100px]">
+        <a href="https://github.com/gamassss/wp-using-laravel" target="_blank">
+            <img width="90px" id="git-logo" src="{{ asset('img/gith.png') }}" alt="" class="-translate-x-24 float-right -translate-y-20">
+        </a>
+    <div class="mx-auto max-w-7xl px-8 md:px-6 mb-28">
         <div class="flex flex-wrap">
             <div class="w-full lg:w-5/12">
                 <h1 class="text-slate-800 mb-3 text-4xl font-bold leading-snug sm:text-[42px] lg:text-[40px] xl:text-[42px]">When you need answers, you know <span class="text-blue-600">where to go.</span></h1>
@@ -89,8 +95,6 @@
                 <div class="lg:ml-auto lg:text-right object-cover">
                     <div class="relative z-10 inline-block pt-11 lg:pt-0">
                         <img width="466px" height="480px" src="{{ asset('img/blob.png') }}" alt="hero section img" class="max-w-full lg:ml-auto object-fill">
-                        {{-- <svg width="1000px" height="1000px" class="max-w-full lg:ml-auto" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                          <path fill="#FF0066" d="M40,22.5C26.3,46.8,-27.9,47.1,-41.4,23C-54.8,-1.2,-27.4,-49.9,-0.3,-50.1C26.9,-50.2,53.7,-1.9,40,22.5Z" transform="translate(100 100)" /> --}}
                         </svg>
                     </div>
                 </div>
@@ -112,37 +116,37 @@
 
         <!-- box wrapper -->
         <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-8">
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-down" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe1.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white">Neuroscience Center</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">Our team of doctors, nurses, and medical professionals with extensive experience in brain and neurological disorders emphasize patient-centered treatment, employing effective technologies and modern medical innovations, collaborating for successful treatment, patient independence, and living as usual a life as possible.</p>
             </div>
 
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-down" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe2.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white">Cardiovascular Center</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">Heart disease is the third highest cause of death among Thai people and in recognition of this fact, the Dr. Ayano Hospital’s Cardiology Center offers the very highest of standards in treating heart disease while also helping patients prevent coronary problems by adapting to and managing a heathy lifestyle. </p>
             </div>
 
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-down" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe3.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white">Gastrohepatology Center</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">Gastrointestinal & Liver Center distinguishes itself with a team of specialists and the collaboration among internal medicine physicians, pediatricians, radiologists, and surgeons with extensive clinical experience in difficult and complex gastrointestinal and liver diseases.</p>
             </div>
 
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-up" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe4.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white text-center">Immunologi Pulmonology & Internal Medicine</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">Pulmonary Center at Dr. Ayano Hospital cares for every lung disease, including asthma, pneumonia, smoking-induced emphysema, airway and lung infections, tuberculosis, hypertension, GERD, and complex lung diseases such as chronic obstructive pulmonary disease and lung cancers.</p>
             </div>
 
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-up" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe5.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white">Obstetric and Gynecology Clinic</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">The clinic is outfitted with modern diagnostic equipment and therapeutic instrument, accoutered with amenities in a relaxing, highly private environment designed and built with true understanding of the needs of both the patients and families. The clinic services are divided into two sections: obstetrics and gynecology.</p>
             </div>
 
-            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500">
+            <div class="group flex cursor-pointer flex-col items-center rounded-xl border border-blue-500/10 bg-white px-5 py-8 shadow-lg shadow-blue-300/10 duration-200 hover:bg-blue-500" data-aos="zoom-in-up" data-aos-duration="800">
                 <img style="height: 55px; width: 55px" src="{{ asset('img/coe6.png') }}" alt="">
                 <h4 class="mt-3 mb-1 text-[17px] font-semibold text-slate-600 duration-200 group-hover:text-white">Orthopedic Center</h4>
                 <p class="text-center text-sm text-slate-500 duration-200 group-hover:text-blue-200">The center delivers comprehensive treatment to patients of all ages and for all orthopedic pathologies including disorders of the musculoskeletal system – bones, joints, ligaments, tendons, muscles and nerves – with special emphasis on difficult and complex problems.</p>
@@ -169,7 +173,7 @@
                     <img src="{{ asset('img/faq.png') }}" alt="faq images" class="max-h-[500px] md:max-h-max">
                 </div>
                 
-                <div class="md:w-6/12">
+                <div class="md:w-6/12" data-aos="fade-up-right" data-aos-duration="800">
                     <div class="" x-data="{selected:1}">
                         <ul>
                             <li class="relative mb-5">
@@ -367,7 +371,7 @@
 
             <!-- right contact-->
             <div class="w-full px-4 md:w-1/2 xl:w-5/12">
-                <div class="relative rounded-lg bg-white p-8 shadow-lg shadow-blue-500/10 sm:p-12">
+                <div class="relative rounded-lg bg-white p-8 shadow-lg shadow-blue-500/10 sm:p-12" data-aos="fade-right" data-aos-duration="1000">
                     <form action="">
                         <div class="mb-6">  
                             <select id="specialities" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -423,14 +427,14 @@
 
         <!-- footer top -->
         <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
-            <div class="md:max-w-md lg:col-span-2">
+            <div class="md:max-w-md lg:col-span-2" data-aos="fade-up" data-aos-duration="1200">
                 <h1 class="text-xl lg:text-3xl text-slate-600 font-bold">RS Dr. Ayano</h1>
                 <div class="mt-4 lg:max-w-sm">
                     <p class="text-sm text-slate-500">We are proud to provide the highest quality of healthcare to our patients and their families. If you have any questions or concerns, please do not hesitate to contact us. Thank you for choosing our hospital for your healthcare needs.</p>
                 </div>
             </div>
 
-            <div class="grid row-gap-8 grid-cols-2 gap-5 md:grid-cols-4 lg:col-span-4">
+            <div class="grid row-gap-8 grid-cols-2 gap-5 md:grid-cols-4 lg:col-span-4" data-aos="fade-up" data-aos-duration="1200">
                 <div class="">
                     <!-- head -->
                     <p class="font-semibold text-slate-700">For Students</p>
@@ -505,6 +509,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- axios cdn -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- aos js -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- gsap cdn js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+
+    <script>
+        gsap.from('#git-logo', { duration: 1.5, y:-300, opacity: 70, ease: 'bounce' });
+    </script>
+
+    <script>
+        AOS.init();
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -516,8 +532,8 @@
                 axios.get(url).then(function (response) {
                 // console.log(response.data[0].name)
                 $.each(response.data, function (index, value) { 
-                    $('#doctors').append('<option value="'+value.id+'">'+value.name+'</option>');
-                });
+                        $('#doctors').append('<option value="'+value.id+'">'+value.name+'</option>');
+                    });
                 })
             });
         });
